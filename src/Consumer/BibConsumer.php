@@ -219,7 +219,7 @@ class BibConsumer implements BibConsumerInterface
         switch ($response->getStatusCode()) {
             // No content.
             case 204:
-            return null;
+                return null;
             // Bad request.
             case 400:
             // Missing Authorization header.
@@ -230,7 +230,7 @@ class BibConsumer implements BibConsumerInterface
             case 404:
             // Misdirected request.
             case 421:
-            throw new BibException($response->getReasonPhrase(), $response->getStatusCode());
+                throw new BibException($response->getReasonPhrase(), $response->getStatusCode());
         }
         $doc->loadXML($response->getBody());
         return $doc;
@@ -275,8 +275,7 @@ class BibConsumer implements BibConsumerInterface
                 $queryData,
                 $this->getRequestToken()
             );
-        }
-        catch (InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             if ($retry) {
                 // We might have a corrupt/invalid request token. Delete it and
                 // retry once.
@@ -345,19 +344,17 @@ class BibConsumer implements BibConsumerInterface
      */
     protected function getCurrentUri()
     {
-        if (isset($_SERVER['REQUEST_URI'])) {
-            $uri = $_SERVER['REQUEST_URI'];
-        }
-        else {
+        $uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : false;
+        if (!$uri) {
             $uri = $_SERVER['SCRIPT_NAME'];
             if (isset($_SERVER['argv']) || isset($_SERVER['QUERY_STRING'])) {
-              $uri .= '?';
-              $uri .= isset($_SERVER['argv']) ? $_SERVER['argv'][0] : $_SERVER['QUERY_STRING'];
+                $uri .= '?';
+                $uri .= isset($_SERVER['argv']) ? $_SERVER['argv'][0] : $_SERVER['QUERY_STRING'];
             }
         }
         return 'http'
             . (isset($_SERVER['HTTPS']) ? 's' : '')
-            . '://' 
+            . '://'
             . $_SERVER['HTTP_HOST']
             . '/'
             . ltrim($uri, '/');

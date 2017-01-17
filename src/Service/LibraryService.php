@@ -18,7 +18,10 @@ class LibraryService extends Service implements LibraryServiceInterface
      */
     public function getLibraryById($libraryId)
     {
-        return $this->consumer->getTwoLegged('/library/id/' . $libraryId);
+        return $this->consumer->getTwoLegged(
+            '/library/id/:libraryId',
+            array(':libraryId' => $libraryId)
+        );
     }
 
     /**
@@ -26,7 +29,11 @@ class LibraryService extends Service implements LibraryServiceInterface
      */
     public function getLibraryByPBS($pbs)
     {
-        return $this->consumer->getTwoLegged('/library/pbscode', array(), array('pbsCode' => $pbs));
+        return $this->consumer->getTwoLegged(
+            '/library/pbscode',
+            array(),
+            array('pbsCode' => $pbs)
+        );
     }
 
     /**
@@ -34,6 +41,10 @@ class LibraryService extends Service implements LibraryServiceInterface
      */
     public function getLibraryByCatalogUrl($url)
     {
-        return $this->consumer->getTwoLegged('/library/catalog', array(), array('catalog' => $url));
+        return $this->consumer->getTwoLegged(
+            '/library/catalog',
+            array(),
+            array('catalog' => $url)
+        );
     }
 }

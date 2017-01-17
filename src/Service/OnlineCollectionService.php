@@ -45,7 +45,8 @@ class OnlineCollectionService extends Service implements OnlineCollectionService
     {
         return $this->consumer->getTwoLegged(
             '/permissions/ip/consumer/:consumerKey/read',
-            array(':consumerKey' => $consumerKey), array('ip' => $ipAddress)
+            array(':consumerKey' => $consumerKey),
+            array('ip' => $ipAddress)
         );
     }
 }

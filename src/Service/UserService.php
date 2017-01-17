@@ -10,7 +10,10 @@ class UserService extends Service implements UserServiceInterface
      */
     public function getUserInfo()
     {
-        return $this->consumer->get('/user/info/:userId', array(':userId' => '{userId}'));
+        return $this->consumer->get(
+            '/user/info/:userId',
+            array(':userId' => '{userId}')
+        );
     }
 
     /**
@@ -18,7 +21,10 @@ class UserService extends Service implements UserServiceInterface
      */
     public function getUserProfile()
     {
-        return $this->consumer->get('/user/:userId', array(':userId' => '{userId}'));
+        return $this->consumer->get(
+            '/user/:userId',
+            array(':userId' => '{userId}')
+        );
     }
 
     /**
@@ -26,7 +32,10 @@ class UserService extends Service implements UserServiceInterface
      */
     public function getUserAvailableOnlineCollections()
     {
-        return $this->consumer->get('/permissions/user/:userId/consumer/list', array(':userId' => '{userId}'));
+        return $this->consumer->get(
+            '/permissions/user/:userId/consumer/list',
+            array(':userId' => '{userId}')
+        );
     }
 
     /**
@@ -34,7 +43,10 @@ class UserService extends Service implements UserServiceInterface
      */
     public function getUserLibraryAccounts()
     {
-        return $this->consumer->get('/libraryaccounts/list/:userId', array(':userId' => '{userId}'));
+        return $this->consumer->get(
+            '/libraryaccounts/list/:userId',
+            array(':userId' => '{userId}')
+        );
     }
 
     /**
@@ -42,7 +54,10 @@ class UserService extends Service implements UserServiceInterface
      */
     public function getUserLibraryAccount($accountId)
     {
-        return $this->consumer->get('/libraryaccounts/:id', array(':id' => $accountId));
+        return $this->consumer->get(
+            '/libraryaccounts/:id',
+            array(':id' => $accountId)
+        );
     }
 
     /**
@@ -50,7 +65,10 @@ class UserService extends Service implements UserServiceInterface
      */
     public function getUserActivities($accountId)
     {
-        return $this->consumer->get('/libraryaccounts/:id/activities', array(':id' => $accountId));
+        return $this->consumer->get(
+            '/libraryaccounts/:id/activities',
+            array(':id' => $accountId)
+        );
     }
 
     /**
@@ -58,7 +76,10 @@ class UserService extends Service implements UserServiceInterface
      */
     public function getUserLoanHistory($accountId)
     {
-        return $this->consumer->get('/libraryaccounts/:id/loanhistory', array(':id' => $accountId));
+        return $this->consumer->get(
+            '/libraryaccounts/:id/loanhistory',
+            array(':id' => $accountId)
+        );
     }
 
     /**
@@ -66,7 +87,10 @@ class UserService extends Service implements UserServiceInterface
      */
     public function getUserWelcomeMessages()
     {
-        return $this->consumer->get('/user/:userId/welcomemessages', array(':userId' => '{userId}'));
+        return $this->consumer->get(
+            '/user/:userId/welcomemessages',
+            array(':userId' => '{userId}')
+        );
     }
 
     /**
@@ -74,7 +98,11 @@ class UserService extends Service implements UserServiceInterface
      */
     public function getUserLibraryList()
     {
-        return $this->consumer->get('/library/list', array(), array('uid' => '{userId}'));
+        return $this->consumer->get(
+            '/library/list',
+            array(),
+            array('uid' => '{userId}')
+        );
     }
 
     /**
@@ -82,6 +110,10 @@ class UserService extends Service implements UserServiceInterface
      */
     public function getUserLibraryListAndOnlineCollection($collectionKey)
     {
-        return $this->consumer->get('/library/list', array(), array('uid' => '{userId}', 'consumerKey' => $collectionKey));
+        return $this->consumer->get(
+            '/library/list',
+            array(),
+            array('uid' => '{userId}', 'consumerKey' => $collectionKey))
+        ;
     }
 }
