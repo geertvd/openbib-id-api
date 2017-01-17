@@ -16,9 +16,12 @@ class ListService extends Service implements ListServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function getListById($id)
+    public function getListById($listId)
     {
-        return $this->consumer->get('/list/:id', array(':id' => $id));
+        return $this->consumer->get(
+            '/list/:id',
+            array(':id' => $listId)
+        );
     }
 
     /**
@@ -26,7 +29,11 @@ class ListService extends Service implements ListServiceInterface
      */
     public function getCatalogItems($libId, $itemId)
     {
-        return $this->consumer->getTwoLegged('/list/catalog/items', array(), array('libraryId' => $libId, 'itemId' => $itemId));
+        return $this->consumer->getTwoLegged(
+            '/list/catalog/items',
+            array(),
+            array('libraryId' => $libId, 'itemId' => $itemId)
+        );
     }
 
     /**
@@ -34,6 +41,9 @@ class ListService extends Service implements ListServiceInterface
      */
     public function getListItems($listId)
     {
-        return $this->consumer->get('/list/:id/items', array(':id' => $listId));
+        return $this->consumer->get(
+            '/list/:id/items',
+            array(':id' => $listId)
+        );
     }
 }

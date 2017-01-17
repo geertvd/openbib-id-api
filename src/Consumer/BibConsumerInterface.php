@@ -5,7 +5,6 @@ namespace OpenBibIdApi\Consumer;
 use OpenBibIdApi\Storage\StorageInterface;
 use OpenBibIdApi\Auth\CredentialsInterface;
 
-
 interface BibConsumerInterface
 {
 
@@ -17,7 +16,7 @@ interface BibConsumerInterface
      * @param \OpenBibIdApi\Storage\StorageInterface $storage
      *   Storage for the request and access token.
      */
-    public function __construct(CredentialsInterface $credentials, StorageInterface $storage = NULL);
+    public function __construct(CredentialsInterface $credentials, StorageInterface $storage = null);
 
     /**
      * Executes a POST request using two-legged authentication.
@@ -34,9 +33,9 @@ interface BibConsumerInterface
      * @param array $queryParams
      *   An array of query parameters.
      *
-     * @return \DOMDocument|NULL
-     *   A \DOMDocument containing the XML from the response, NULL if HTTP status
-     *   code 204 (No content) was returned.
+     * @return \DOMDocument|null
+     *   A \DOMDocument containing the XML from the response, null if HTTP
+     *   status code 204 (No content) was returned.
      *
      * @throws BibApi\Exception\BibException
      *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
@@ -58,9 +57,9 @@ interface BibConsumerInterface
      * @param array $queryParams
      *   An array of query parameters.
      *
-     * @return \DOMDocument|NULL
-     *   A \DOMDocument containing the XML from the response, NULL if HTTP status
-     *   code 204 (No content) was returned.
+     * @return \DOMDocument|null
+     *   A \DOMDocument containing the XML from the response, null if HTTP
+     *   status code 204 (No content) was returned.
      *
      * @throws BibApi\Exception\BibException
      *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
@@ -82,9 +81,9 @@ interface BibConsumerInterface
      * @param array $queryParams
      *   An array of POST data.
      *
-     * @return \DOMDocument|NULL
-     *   A \DOMDocument containing the XML from the response, NULL if HTTP status
-     *   code 204 (No content) was returned.
+     * @return \DOMDocument|null
+     *   A \DOMDocument containing the XML from the response, null if HTTP
+     *   status code 204 (No content) was returned.
      *
      * @throws BibApi\Exception\BibException
      *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
@@ -106,13 +105,12 @@ interface BibConsumerInterface
      * @param array $queryParams
      *   An array of POST data.
      *
-     * @return \DOMDocument|NULL
-     *   A \DOMDocument containing the XML from the response, NULL if HTTP status
-     *   code 204 (No content) was returned.
+     * @return \DOMDocument|null
+     *   A \DOMDocument containing the XML from the response, null if HTTP
+     *   status code 204 (No content) was returned.
      *
      * @throws BibApi\Exception\BibException
      *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
      */
     public function postTwoLegged($url, $params = array(), $queryParams = array());
-
 }

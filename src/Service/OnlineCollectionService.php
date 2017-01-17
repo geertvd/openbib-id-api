@@ -8,9 +8,12 @@ class OnlineCollectionService extends Service implements OnlineCollectionService
     /**
      * {@inheritdoc}
      */
-    public function getOnlineCollectionById($id)
+    public function getOnlineCollectionById($collectionId)
     {
-        return $this->consumer->getTwoLegged('/subscription/id/:subscriptionId', array(':subscriptionId' => $id));
+        return $this->consumer->getTwoLegged(
+            '/subscription/id/:subscriptionId',
+            array(':subscriptionId' => $collectionId)
+        );
     }
 
     /**
@@ -18,7 +21,10 @@ class OnlineCollectionService extends Service implements OnlineCollectionService
      */
     public function getOnlineCollectionByConsumerKey($consumerKey)
     {
-        return $this->consumer->getTwoLegged('/subscription/key/:key', array(':key' => $consumerKey));
+        return $this->consumer->getTwoLegged(
+            '/subscription/key/:key',
+            array(':key' => $consumerKey)
+        );
     }
 
     /**
@@ -26,15 +32,20 @@ class OnlineCollectionService extends Service implements OnlineCollectionService
      */
     public function getOnlineCollectionPermissions($consumerKey)
     {
-        return $this->consumer->get('/permissions/user/:userId/consumer/:consumerKey/read', array(':userId' => '{userId}', ':consumerKey' => $consumerKey));
+        return $this->consumer->get(
+            '/permissions/user/:userId/consumer/:consumerKey/read',
+            array(':userId' => '{userId}', ':consumerKey' => $consumerKey)
+        );
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getOnlineCollectionPermissionsByIp($consumerKey, $ip)
+    public function getOnlineCollectionPermissionsByIp($consumerKey, $ipAddress)
     {
-        return $this->consumer->getTwoLegged('/permissions/ip/consumer/:consumerKey/read', array(':consumerKey' => $consumerKey), array('ip' => $ip));
+        return $this->consumer->getTwoLegged(
+            '/permissions/ip/consumer/:consumerKey/read',
+            array(':consumerKey' => $consumerKey), array('ip' => $ipAddress)
+        );
     }
-
 }

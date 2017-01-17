@@ -95,5 +95,4 @@ class Environment implements EnvironmentInterface
     {
         return $this->baseUrl. '/auth/authorize';
     }
-
 }

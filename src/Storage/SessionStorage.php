@@ -26,7 +26,7 @@ class SessionStorage implements StorageInterface
     /**
      * {@inheritdoc}
      */
-    public function get($key, $default = NULL)
+    public function get($key, $default = null)
     {
         $key = $this->prefix . $key;
         return isset($_SESSION[$key]) ? unserialize($_SESSION[$key]) : $default;

@@ -11,7 +11,6 @@ use ZendOAuth\Consumer;
 use ZendOAuth\Exception\InvalidArgumentException;
 use ZendOAuth\Token\Access;
 
-
 class BibConsumer implements BibConsumerInterface
 {
 
@@ -57,7 +56,7 @@ class BibConsumer implements BibConsumerInterface
      * @param StorageInterface $storage
      *   Storage for the request and access token.
      */
-    public function __construct(CredentialsInterface $credentials, StorageInterface $storage = NULL)
+    public function __construct(CredentialsInterface $credentials, StorageInterface $storage = null)
     {
         $this->credentials = $credentials;
         $this->oauthConfig = array(
@@ -84,7 +83,14 @@ class BibConsumer implements BibConsumerInterface
         $config = $this->oauthConfig;
         $token = $this->getAccessToken();
         $client = $token->getHttpClient($config);
-        return $this->doRequest($client, $url, array('urlParams' => $params,'queryParams' => $queryParams));
+        return $this->doRequest(
+            $client,
+            $url,
+            array(
+                'urlParams' => $params,
+                'queryParams' => $queryParams,
+            )
+        );
     }
 
     /**
@@ -98,7 +104,14 @@ class BibConsumer implements BibConsumerInterface
         $config = $this->oauthConfig;
         $client = new Client($config);
         $client->setToken(new Access());
-        return $this->doRequest($client, $url, array('urlParams' => $params,'queryParams' => $queryParams));
+        return $this->doRequest(
+            $client,
+            $url,
+            array(
+                'urlParams' => $params,
+                'queryParams' => $queryParams,
+              )
+        );
     }
 
     /**
@@ -113,7 +126,15 @@ class BibConsumer implements BibConsumerInterface
         $config = $this->oauthConfig;
         $token = $this->getAccessToken();
         $client = $token->getHttpClient($config);
-        return $this->doRequest($client, $url, array('urlParams' => $params,'queryParams' => $queryParams, 'method' => \Zend\Http\Request::METHOD_POST));
+        return $this->doRequest(
+            $client,
+            $url,
+            array(
+                'urlParams' => $params,
+                'queryParams' => $queryParams,
+                'method' => \Zend\Http\Request::METHOD_POST,
+            )
+        );
     }
 
     /**
@@ -127,7 +148,15 @@ class BibConsumer implements BibConsumerInterface
         $config = $this->oauthConfig;
         $client = new Client($config);
         $client->setToken(new Access());
-        return $this->doRequest($client, $url, array('urlParams' => $params,'queryParams' => $queryParams, 'method' => \Zend\Http\Request::METHOD_POST));
+        return $this->doRequest(
+            $client,
+            $url,
+            array(
+                'urlParams' => $params,
+                'queryParams' => $queryParams,
+                'method' => \Zend\Http\Request::METHOD_POST,
+            )
+        );
     }
 
     /**
@@ -143,14 +172,16 @@ class BibConsumer implements BibConsumerInterface
      *         $url: 'https://mijn.bibliotheek.be/openbibid/rest/library/id/:id'
      *         urlParams: [':id' => 2199]
      *         Values between {} are taken from the access token:
-     *         $url: 'https://mijn.bibliotheek.be/openbibid/rest/user/info/:userId'
+     *         $url:
+     *           'https://mijn.bibliotheek.be/openbibid/rest/user/info/:userId'
      *         urlParams: [':userId' => '{userId}']
      *     - queryParams: An array of query parameters for GET requests or POST
      *       data for POST requests.
      *     - method: One of the \Zend\Http\Request::METHOD_* constants.
      *
-     * @return \DOMDocument|NULL
-     *   A \DOMDocument containing the XML from the response, NULL if HTTP status
+     * @return \DOMDocument|null
+     *   A \DOMDocument containing the XML from the response, null if HTTP
+     *   status
      *   code 204 (No content) was returned.
      *
      * @throws BibApi\Exception\BibException
@@ -183,11 +214,12 @@ class BibConsumer implements BibConsumerInterface
         $response = $client->send();
 
         $doc = new \DOMDocument();
-        // Below are all possible error codes as described bij de api documentation.
+        // Below are all possible error codes as described bij de api
+        // documentation.
         switch ($response->getStatusCode()) {
             // No content.
             case 204:
-              return NULL;
+            return null;
             // Bad request.
             case 400:
             // Missing Authorization header.
@@ -198,7 +230,7 @@ class BibConsumer implements BibConsumerInterface
             case 404:
             // Misdirected request.
             case 421:
-              throw new BibException($response->getReasonPhrase(), $response->getStatusCode());
+            throw new BibException($response->getReasonPhrase(), $response->getStatusCode());
         }
         $doc->loadXML($response->getBody());
         return $doc;
@@ -231,7 +263,7 @@ class BibConsumer implements BibConsumerInterface
      *
      * @return $this
      */
-    protected function fetchAccessToken($queryData, $retry = TRUE)
+    protected function fetchAccessToken($queryData, $retry = true)
     {
         if (!$this->hasRequestToken()) {
             $this->consumer->setCallbackUrl($this->getCurrentUri());
@@ -240,18 +272,19 @@ class BibConsumer implements BibConsumerInterface
         }
         try {
             $token = $this->consumer->getAccessToken(
-                $queryData, $this->getRequestToken()
+                $queryData,
+                $this->getRequestToken()
             );
         }
         catch (InvalidArgumentException $e) {
-          if ($retry) {
-              // We might have a corrupt/invalid request token. Delete it and
-              // retry once.
-              $this->storage->delete(static::BIB_REQUEST_TOKEN);
-              $this->storage->delete(static::BIB_ACCESS_TOKEN);
-              return $this->fetchAccessToken($queryData, FALSE);
-          }
-          throw $e;
+            if ($retry) {
+                // We might have a corrupt/invalid request token. Delete it and
+                // retry once.
+                $this->storage->delete(static::BIB_REQUEST_TOKEN);
+                $this->storage->delete(static::BIB_ACCESS_TOKEN);
+                return $this->fetchAccessToken($queryData, false);
+            }
+            throw $e;
         }
         // We got a new access token, we can remove the request token now.
         $this->storage->delete(static::BIB_REQUEST_TOKEN);
@@ -264,7 +297,7 @@ class BibConsumer implements BibConsumerInterface
      * Checks if a request token has been set.
      *
      * @return bool
-     *   TRUE if a request token has been set, FALSE otherwise.
+     *   true if a request token has been set, false otherwise.
      */
     protected function hasRequestToken()
     {
@@ -275,7 +308,7 @@ class BibConsumer implements BibConsumerInterface
      * Checks if a access token has been set.
      *
      * @return bool
-     *   TRUE if a access token has been set, FALSE otherwise.
+     *   true if a access token has been set, false otherwise.
      */
     protected function hasAccessToken()
     {
@@ -316,17 +349,17 @@ class BibConsumer implements BibConsumerInterface
             $uri = $_SERVER['REQUEST_URI'];
         }
         else {
-            if (isset($_SERVER['argv'])) {
-                $uri = $_SERVER['SCRIPT_NAME'] . '?' . $_SERVER['argv'][0];
-            }
-            elseif (isset($_SERVER['QUERY_STRING'])) {
-                $uri = $_SERVER['SCRIPT_NAME'] . '?' . $_SERVER['QUERY_STRING'];
-            }
-            else {
-                $uri = $_SERVER['SCRIPT_NAME'];
+            $uri = $_SERVER['SCRIPT_NAME'];
+            if (isset($_SERVER['argv']) || isset($_SERVER['QUERY_STRING'])) {
+              $uri .= '?';
+              $uri .= isset($_SERVER['argv']) ? $_SERVER['argv'][0] : $_SERVER['QUERY_STRING'];
             }
         }
-        return 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['HTTP_HOST'] . '/' . ltrim($uri, '/');
+        return 'http'
+            . (isset($_SERVER['HTTPS']) ? 's' : '')
+            . '://' 
+            . $_SERVER['HTTP_HOST']
+            . '/'
+            . ltrim($uri, '/');
     }
-
 }

@@ -24,5 +24,4 @@ abstract class Service implements ServiceInterface
     {
         $this->consumer = $consumer;
     }
-
 }

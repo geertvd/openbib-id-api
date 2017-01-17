@@ -53,5 +53,4 @@ interface EnvironmentInterface
      *   The authorize url.
      */
     public function getAuthorizeUrl();
-
 }

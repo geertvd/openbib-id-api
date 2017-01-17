@@ -25,5 +25,4 @@ interface CredentialsInterface
      * @return \OpenBibIdApi\Auth\EnvironmentInterface
      */
     public function getEnvironment();
-
 }

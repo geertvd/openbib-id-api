@@ -8,9 +8,9 @@ interface ListServiceInterface extends ServiceInterface
     /**
      * Get the lists of the current logged in user.
      *
-     * @return \DOMDocument|NULL
-     *   A \DOMDocument containing the XML from the response, NULL if HTTP status
-     *   code 204 (No content) was returned.
+     * @return \DOMDocument|null
+     *   A \DOMDocument containing the XML from the response, null if HTTP
+     *   status code 204 (No content) was returned.
      *
      * @throws BibApi\Exception\BibException
      *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
@@ -20,17 +20,17 @@ interface ListServiceInterface extends ServiceInterface
     /**
      * Get a list by id.
      *
-     * @param string $id
+     * @param string $listId
      *   The list id.
      *
-     * @return \DOMDocument|NULL
-     *   A \DOMDocument containing the XML from the response, NULL if HTTP status
-     *   code 204 (No content) was returned.
+     * @return \DOMDocument|null
+     *   A \DOMDocument containing the XML from the response, null if HTTP
+     *   status code 204 (No content) was returned.
      *
      * @throws BibApi\Exception\BibException
      *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
      */
-    public function getListById($id);
+    public function getListById($listId);
 
     /**
      * Search items in the catalog.
@@ -40,9 +40,9 @@ interface ListServiceInterface extends ServiceInterface
      * @param string $itemId
      *   The id of the item to search.
      *
-     * @return \DOMDocument|NULL
-     *   A \DOMDocument containing the XML from the response, NULL if HTTP status
-     *   code 204 (No content) was returned.
+     * @return \DOMDocument|null
+     *   A \DOMDocument containing the XML from the response, null if HTTP
+     *   status code 204 (No content) was returned.
      *
      * @throws BibApi\Exception\BibException
      *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
@@ -55,9 +55,9 @@ interface ListServiceInterface extends ServiceInterface
      * @param string $listId
      *   The list id.
      *
-     * @return \DOMDocument|NULL
-     *   A \DOMDocument containing the XML from the response, NULL if HTTP status
-     *   code 204 (No content) was returned.
+     * @return \DOMDocument|null
+     *   A \DOMDocument containing the XML from the response, null if HTTP
+     *   status code 204 (No content) was returned.
      *
      * @throws BibApi\Exception\BibException
      *   When any of the 400, 401, 403, 404 or 421 status codes were returned.

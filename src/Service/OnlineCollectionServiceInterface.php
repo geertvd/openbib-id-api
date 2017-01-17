@@ -8,17 +8,17 @@ interface OnlineCollectionServiceInterface extends ServiceInterface
     /**
      * Get an online collection by id.
      *
-     * @param string $id
+     * @param string $collectionId
      *   The online collection id.
      *
-     * @return \DOMDocument|NULL
-     *   A \DOMDocument containing the XML from the response, NULL if HTTP status
-     *   code 204 (No content) was returned.
+     * @return \DOMDocument|null
+     *   A \DOMDocument containing the XML from the response, null if HTTP
+     *   status code 204 (No content) was returned.
      *
      * @throws BibApi\Exception\BibException
      *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
      */
-    public function getOnlineCollectionById($id);
+    public function getOnlineCollectionById($collectionId);
 
     /**
      * Get an online collection by its consumer key.
@@ -26,9 +26,9 @@ interface OnlineCollectionServiceInterface extends ServiceInterface
      * @param string $consumerKey
      *   The online collection consumer key.
      *
-     * @return \DOMDocument|NULL
-     *   A \DOMDocument containing the XML from the response, NULL if HTTP status
-     *   code 204 (No content) was returned.
+     * @return \DOMDocument|null
+     *   A \DOMDocument containing the XML from the response, null if HTTP
+     *   status code 204 (No content) was returned.
      *
      * @throws BibApi\Exception\BibException
      *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
@@ -41,9 +41,9 @@ interface OnlineCollectionServiceInterface extends ServiceInterface
      * @param string $consumerKey
      *   The online collection consumer key.
      *
-     * @return \DOMDocument|NULL
-     *   A \DOMDocument containing the XML from the response, NULL if HTTP status
-     *   code 204 (No content) was returned.
+     * @return \DOMDocument|null
+     *   A \DOMDocument containing the XML from the response, null if HTTP
+     *   status code 204 (No content) was returned.
      *
      * @throws BibApi\Exception\BibException
      *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
@@ -55,16 +55,15 @@ interface OnlineCollectionServiceInterface extends ServiceInterface
      *
      * @param string $consumerKey
      *   The online collection consumer key.
-     * @param string $ip
+     * @param string $ipAddress
      *   The IP address.
      *
-     * @return \DOMDocument|NULL
-     *   A \DOMDocument containing the XML from the response, NULL if HTTP status
-     *   code 204 (No content) was returned.
+     * @return \DOMDocument|null
+     *   A \DOMDocument containing the XML from the response, null if HTTP
+     *   status code 204 (No content) was returned.
      *
      * @throws BibApi\Exception\BibException
      *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
      */
-    public function getOnlineCollectionPermissionsByIp($consumerKey, $ip);
-
+    public function getOnlineCollectionPermissionsByIp($consumerKey, $ipAddress);
 }

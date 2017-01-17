@@ -24,7 +24,7 @@ interface StorageInterface
      *   The default value to return if the value for this key was not set.
      *
      */
-    public function get($key, $default = NULL);
+    public function get($key, $default = null);
 
     /**
      * Delete a stored value.

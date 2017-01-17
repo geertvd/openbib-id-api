@@ -8,9 +8,9 @@ interface LibraryServiceInterface extends ServiceInterface
     /**
      * Get a list of all libraries.
      *
-     * @return \DOMDocument|NULL
-     *   A \DOMDocument containing the XML from the response, NULL if HTTP status
-     *   code 204 (No content) was returned.
+     * @return \DOMDocument|null
+     *   A \DOMDocument containing the XML from the response, null if HTTP
+     *   status code 204 (No content) was returned.
      *
      * @throws BibApi\Exception\BibException
      *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
@@ -20,17 +20,17 @@ interface LibraryServiceInterface extends ServiceInterface
     /**
      * Get a library by id.
      *
-     * @param string $id
+     * @param string $libraryId
      *   The library id.
      *
-     * @return \DOMDocument|NULL
-     *   A \DOMDocument containing the XML from the response, NULL if HTTP status
-     *   code 204 (No content) was returned.
+     * @return \DOMDocument|null
+     *   A \DOMDocument containing the XML from the response, null if HTTP
+     *   status code 204 (No content) was returned.
      *
      * @throws BibApi\Exception\BibException
      *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
      */
-    public function getLibraryById($id);
+    public function getLibraryById($libraryId);
 
     /**
      * Get a library by pbs code.
@@ -38,9 +38,9 @@ interface LibraryServiceInterface extends ServiceInterface
      * @param string $pbs
      *   The pbs code.
      *
-     * @return \DOMDocument|NULL
-     *   A \DOMDocument containing the XML from the response, NULL if HTTP status
-     *   code 204 (No content) was returned.
+     * @return \DOMDocument|null
+     *   A \DOMDocument containing the XML from the response, null if HTTP
+     *   status code 204 (No content) was returned.
      *
      * @throws BibApi\Exception\BibException
      *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
@@ -53,13 +53,12 @@ interface LibraryServiceInterface extends ServiceInterface
      * @param string $url
      *   The catalog url.
      *
-     * @return \DOMDocument|NULL
-     *   A \DOMDocument containing the XML from the response, NULL if HTTP status
-     *   code 204 (No content) was returned.
+     * @return \DOMDocument|null
+     *   A \DOMDocument containing the XML from the response, null if HTTP
+     *   status code 204 (No content) was returned.
      *
      * @throws BibApi\Exception\BibException
      *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
      */
     public function getLibraryByCatalogUrl($url);
-
 }

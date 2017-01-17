@@ -16,9 +16,9 @@ class LibraryService extends Service implements LibraryServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function getLibraryById($id)
+    public function getLibraryById($libraryId)
     {
-        return $this->consumer->getTwoLegged('/library/id/' . $id);
+        return $this->consumer->getTwoLegged('/library/id/' . $libraryId);
     }
 
     /**
@@ -36,5 +36,4 @@ class LibraryService extends Service implements LibraryServiceInterface
     {
         return $this->consumer->getTwoLegged('/library/catalog', array(), array('catalog' => $url));
     }
-
 }
