@@ -1,0 +1,24 @@
+{
+    "name": "digipolisgent/openbib-id-api",
+    "description": "OpenBib ID API wrapper for PHP",
+    "minimum-stability": "RC",
+    "prefer-stable": true,
+    "require": {
+        "zendframework/zendoauth": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "OpenBibIdApi\\": "src/"
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jelle Sebreghts",
+            "email": "sebreghts.jelle@gmail.com"
+        }
+    ],
+    "suggest": {
+        "digipolisgent/openbib-id-api-examples": "Usage examples for this library."
+    }
+}
