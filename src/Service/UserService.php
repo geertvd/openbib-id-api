@@ -113,7 +113,7 @@ class UserService extends Service implements UserServiceInterface
         return $this->consumer->get(
             '/library/list',
             array(),
-            array('uid' => '{userId}', 'consumerKey' => $collectionKey))
-        ;
+            array('uid' => '{userId}', 'consumerKey' => $collectionKey)
+        );
     }
 }
