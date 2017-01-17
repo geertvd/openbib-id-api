@@ -17,5 +17,8 @@
             "name": "Jelle Sebreghts",
             "email": "sebreghts.jelle@gmail.com"
         }
-    ]
+    ],
+    "suggest": {
+        "digipolisgent/openbib-id-api-examples": "Usage examples for this library."
+    }
 }
