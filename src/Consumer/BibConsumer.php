@@ -176,7 +176,7 @@ class BibConsumer implements BibConsumerInterface
                 $queryParams[$key] = $token->getParam(substr($param, 1, -1));
             }
         }
-        $client->setUri($this->baseUrl . $url);
+        $client->setUri($this->credentials->getEnvironment()->getBaseUrl() . $url);
         $client->setParameterGet($queryParams);
         $client->setMethod($options['method']);
         $response = $client->send();
