@@ -249,7 +249,7 @@ class BibConsumer implements BibConsumerInterface
               // retry once.
               $this->storage->delete(static::BIB_REQUEST_TOKEN);
               $this->storage->delete(static::BIB_ACCESS_TOKEN);
-              return $this->fetchRequestToken($queryData, FALSE);
+              return $this->fetchAccessToken($queryData, FALSE);
           }
           throw $e;
         }
