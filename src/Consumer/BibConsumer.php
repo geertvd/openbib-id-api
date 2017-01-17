@@ -8,6 +8,7 @@ use OpenBibIdApi\Storage\SessionStorage;
 use OpenBibIdApi\Storage\StorageInterface;
 use ZendOAuth\Client;
 use ZendOAuth\Consumer;
+use ZendOAuth\Exception\InvalidArgumentException;
 use ZendOAuth\Token\Access;
 
 
@@ -225,19 +226,33 @@ class BibConsumer implements BibConsumerInterface
      *
      * @param array $queryData
      *   GET data returned in user's redirect from Provider.
+     * @param bool $retry
+     *   Internal use only.
      *
      * @return $this
      */
-    protected function fetchAccessToken($queryData)
+    protected function fetchAccessToken($queryData, $retry = TRUE)
     {
         if (!$this->hasRequestToken()) {
             $this->consumer->setCallbackUrl($this->getCurrentUri());
             $this->fetchRequestToken();
             $this->consumer->redirect();
         }
-        $token = $this->consumer->getAccessToken(
-            $queryData, $this->getRequestToken()
-        );
+        try {
+            $token = $this->consumer->getAccessToken(
+                $queryData, $this->getRequestToken()
+            );
+        }
+        catch (InvalidArgumentException $e) {
+          if ($retry) {
+              // We might have a corrupt/invalid request token. Delete it and
+              // retry once.
+              $this->storage->delete(static::BIB_REQUEST_TOKEN);
+              $this->storage->delete(static::BIB_ACCESS_TOKEN);
+              return $this->fetchRequestToken($queryData, FALSE);
+          }
+          throw $e;
+        }
         // We got a new access token, we can remove the request token now.
         $this->storage->delete(static::BIB_REQUEST_TOKEN);
         $this->storage->set(static::BIB_ACCESS_TOKEN, $token);
