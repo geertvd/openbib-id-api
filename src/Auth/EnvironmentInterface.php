@@ -14,6 +14,14 @@ interface EnvironmentInterface
     public function __construct($baseUrl);
 
     /**
+     * Get the environment name.
+     *
+     * @return string
+     *   The environment name.
+     */
+    public function getName();
+
+    /**
      * Get the base url.
      *
      * @return string

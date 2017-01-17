@@ -68,7 +68,7 @@ class BibConsumer implements BibConsumerInterface
             'authorizeUrl' => $credentials->getEnvironment()->getAuthorizeUrl(),
         );
         $this->consumer = new Consumer($this->oauthConfig);
-        $this->storage = is_null($storage) ? new SessionStorage($this->environment) : $storage;
+        $this->storage = is_null($storage) ? new SessionStorage($credentials->getEnvironment()->getName()) : $storage;
     }
 
     /**

@@ -6,6 +6,13 @@ class Environment implements EnvironmentInterface
 {
 
     /**
+     * The name of the environment.
+     *
+     * @var string
+     */
+    protected $name;
+
+    /**
      * The base url.
      *
      * @var string
@@ -17,10 +24,13 @@ class Environment implements EnvironmentInterface
      *
      * @param string $baseUrl
      *   The base url.
+     * @param string name
+     *   The name of the environment (e.g. 'prod', 'qa', 'test').
      */
-    public function __construct($baseUrl)
+    public function __construct($baseUrl, $name = 'environment')
     {
         $this->baseUrl = $baseUrl;
+        $this->name = $name;
     }
 
     /**
@@ -31,7 +41,7 @@ class Environment implements EnvironmentInterface
      */
     public static function production()
     {
-        return new self('https://mijn.bibliotheek.be/openbibid/rest');
+        return new self('https://mijn.bibliotheek.be/openbibid/rest', 'prod');
     }
 
     /**
@@ -42,9 +52,16 @@ class Environment implements EnvironmentInterface
      */
     public static function staging()
     {
-        return new self('https://staging-mijn.bibliotheek.be/openbibid/rest');
+        return new self('https://staging-mijn.bibliotheek.be/openbibid/rest', 'staging');
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 
     /**
      * {@inheritdoc}
