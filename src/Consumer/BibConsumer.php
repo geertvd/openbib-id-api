@@ -195,7 +195,7 @@ class BibConsumer implements BibConsumerInterface
         $options += array(
             'urlParams' => array(),
             'queryParams' => array(),
-            'method' => \Zend\Http\Request::METHOD_GET,
+            'method' => static::METHOD_GET,
         );
         $token = $client->getToken();
 
