@@ -264,7 +264,7 @@ class BibConsumer implements BibConsumerInterface
      */
     protected function getParameterReplacements($parameters, TokenInterface $token)
     {
-        $replacements = array();
+        $replacements = $parameters;
         foreach ($parameters as $key => $param) {
             if (strpos($param, '{') === 0 && strpos($param, '}') === strlen($param) - 1) {
                 $replacements[$key] = $token->getParam(substr($param, 1, -1));
