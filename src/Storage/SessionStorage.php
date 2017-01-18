@@ -48,5 +48,4 @@ class SessionStorage implements StorageInterface
         $key = $this->prefix . $key;
         unset($_SESSION[$key]);
     }
-
 }

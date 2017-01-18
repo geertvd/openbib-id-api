@@ -47,8 +47,7 @@ class FileStorage implements StorageInterface
     {
         $key = $this->path . $key . '.txt';
         if (file_exists($key)) {
-           unlink($key);
+            unlink($key);
         }
     }
-
 }
