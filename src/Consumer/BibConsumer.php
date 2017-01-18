@@ -4,18 +4,20 @@ namespace OpenBibIdApi\Consumer;
 
 use OpenBibIdApi\Auth\CredentialsInterface;
 use OpenBibIdApi\Exception\BibException;
-use OpenBibIdApi\OAuth\Client as OpenBibOAuthClient;
 use OpenBibIdApi\Storage\SessionStorage;
 use OpenBibIdApi\Storage\StorageInterface;
-use ZendOAuth\Client as ZendOAuthClient;
+use ZendOAuth\Client;
 use ZendOAuth\Consumer;
 use ZendOAuth\Exception\InvalidArgumentException;
+use ZendOAuth\Token\Access;
 use ZendOAuth\Token\TokenInterface;
 
 class BibConsumer implements BibConsumerInterface
 {
     const BIB_REQUEST_TOKEN = 'BIB_REQUEST_TOKEN';
     const BIB_ACCESS_TOKEN = 'BIB_ACCESS_TOKEN';
+    const METHOD_GET = 'GET';
+    const METHOD_POST = 'POST';
 
     /**
      * OAuth consumer.
@@ -103,7 +105,8 @@ class BibConsumer implements BibConsumerInterface
             $this->fetchRequestToken();
         }
         $config = $this->oauthConfig;
-        $client = new OpenBibOAuthClient($config);
+        $client = new Client($config);
+        $client->setToken(new Access());
         return $this->doRequest(
             $client,
             $url,
@@ -132,7 +135,7 @@ class BibConsumer implements BibConsumerInterface
             array(
                 'urlParams' => $params,
                 'queryParams' => $queryParams,
-                'method' => \Zend\Http\Request::METHOD_POST,
+                'method' => static::METHOD_POST,
             )
         );
     }
@@ -146,14 +149,15 @@ class BibConsumer implements BibConsumerInterface
             $this->fetchRequestToken();
         }
         $config = $this->oauthConfig;
-        $client = new OpenBibOAuthClient($config);
+        $client = new Client($config);
+        $client->setToken(new Access());
         return $this->doRequest(
             $client,
             $url,
             array(
                 'urlParams' => $params,
                 'queryParams' => $queryParams,
-                'method' => \Zend\Http\Request::METHOD_POST,
+                'method' => static::METHOD_POST,
             )
         );
     }
@@ -186,7 +190,7 @@ class BibConsumer implements BibConsumerInterface
      * @throws BibApi\Exception\BibException
      *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
      */
-    protected function doRequest(ZendOAuthClient $client, $url, $options = array())
+    protected function doRequest(Client $client, $url, $options = array())
     {
         $options += array(
             'urlParams' => array(),
@@ -208,11 +212,11 @@ class BibConsumer implements BibConsumerInterface
 
         // Set the parameters.
         switch ($options['method']) {
-            case \Zend\Http\Request::METHOD_POST:
+            case static::METHOD_POST:
                 $client->setParameterPost($queryParams);
                 break;
 
-            case \Zend\Http\Request::METHOD_GET:
+            case static::METHOD_GET:
             default:
                 $client->setParameterGet($queryParams);
                 break;
