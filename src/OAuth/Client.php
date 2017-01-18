@@ -18,7 +18,7 @@ class Client extends OAuthClient
                 $oauthOptions = ArrayUtils::iteratorToArray($oauthOptions);
             }
             if (!isset($oauthOptions['token'])) {
-              $oauthOptions['token'] = new Access();
+                $oauthOptions['token'] = new Access();
             }
         }
         parent::__construct($oauthOptions, $uri, $config);
