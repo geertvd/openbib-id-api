@@ -4,7 +4,6 @@ namespace OpenBibIdApi\Service;
 
 interface OnlineCollectionServiceInterface extends ServiceInterface
 {
-
     /**
      * Get an online collection by id.
      *
@@ -14,9 +13,6 @@ interface OnlineCollectionServiceInterface extends ServiceInterface
      * @return \DOMDocument|null
      *   A \DOMDocument containing the XML from the response, null if HTTP
      *   status code 204 (No content) was returned.
-     *
-     * @throws BibApi\Exception\BibException
-     *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
      */
     public function getOnlineCollectionById($collectionId);
 
@@ -29,9 +25,6 @@ interface OnlineCollectionServiceInterface extends ServiceInterface
      * @return \DOMDocument|null
      *   A \DOMDocument containing the XML from the response, null if HTTP
      *   status code 204 (No content) was returned.
-     *
-     * @throws BibApi\Exception\BibException
-     *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
      */
     public function getOnlineCollectionByConsumerKey($consumerKey);
 
@@ -44,9 +37,6 @@ interface OnlineCollectionServiceInterface extends ServiceInterface
      * @return \DOMDocument|null
      *   A \DOMDocument containing the XML from the response, null if HTTP
      *   status code 204 (No content) was returned.
-     *
-     * @throws BibApi\Exception\BibException
-     *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
      */
     public function getOnlineCollectionPermissions($consumerKey);
 
@@ -61,9 +51,6 @@ interface OnlineCollectionServiceInterface extends ServiceInterface
      * @return \DOMDocument|null
      *   A \DOMDocument containing the XML from the response, null if HTTP
      *   status code 204 (No content) was returned.
-     *
-     * @throws BibApi\Exception\BibException
-     *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
      */
     public function getOnlineCollectionPermissionsByIp($consumerKey, $ipAddress);
 }

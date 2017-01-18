@@ -4,7 +4,6 @@ namespace OpenBibIdApi\Storage;
 
 class FileStorage implements StorageInterface
 {
-
     /**
      * The path to store the files under.
      *

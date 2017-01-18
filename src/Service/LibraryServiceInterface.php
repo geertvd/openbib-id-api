@@ -4,16 +4,12 @@ namespace OpenBibIdApi\Service;
 
 interface LibraryServiceInterface extends ServiceInterface
 {
-
     /**
      * Get a list of all libraries.
      *
      * @return \DOMDocument|null
      *   A \DOMDocument containing the XML from the response, null if HTTP
      *   status code 204 (No content) was returned.
-     *
-     * @throws BibApi\Exception\BibException
-     *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
      */
     public function getLibraryList();
 
@@ -26,9 +22,6 @@ interface LibraryServiceInterface extends ServiceInterface
      * @return \DOMDocument|null
      *   A \DOMDocument containing the XML from the response, null if HTTP
      *   status code 204 (No content) was returned.
-     *
-     * @throws BibApi\Exception\BibException
-     *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
      */
     public function getLibraryById($libraryId);
 
@@ -41,9 +34,6 @@ interface LibraryServiceInterface extends ServiceInterface
      * @return \DOMDocument|null
      *   A \DOMDocument containing the XML from the response, null if HTTP
      *   status code 204 (No content) was returned.
-     *
-     * @throws BibApi\Exception\BibException
-     *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
      */
     public function getLibraryByPBS($pbs);
 
@@ -56,9 +46,6 @@ interface LibraryServiceInterface extends ServiceInterface
      * @return \DOMDocument|null
      *   A \DOMDocument containing the XML from the response, null if HTTP
      *   status code 204 (No content) was returned.
-     *
-     * @throws BibApi\Exception\BibException
-     *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
      */
     public function getLibraryByCatalogUrl($url);
 }

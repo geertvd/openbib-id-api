@@ -4,7 +4,6 @@ namespace OpenBibIdApi\Auth;
 
 class Credentials implements CredentialsInterface
 {
-
     /**
      * The consumer key.
      *

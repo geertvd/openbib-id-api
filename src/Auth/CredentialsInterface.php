@@ -4,7 +4,6 @@ namespace OpenBibIdApi\Auth;
 
 interface CredentialsInterface
 {
-
     /**
      * Get the consumer key.
      *

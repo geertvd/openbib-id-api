@@ -4,7 +4,6 @@ namespace OpenBibIdApi\Service;
 
 class LibraryService extends Service implements LibraryServiceInterface
 {
-
     /**
      * {@inheritdoc}
      */

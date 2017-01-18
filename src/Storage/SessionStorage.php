@@ -4,7 +4,6 @@ namespace OpenBibIdApi\Storage;
 
 class SessionStorage implements StorageInterface
 {
-
     /**
      * The prefix to add before the keys when storing values in the session.
      *

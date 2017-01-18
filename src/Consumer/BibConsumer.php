@@ -13,7 +13,6 @@ use ZendOAuth\Token\Access;
 
 class BibConsumer implements BibConsumerInterface
 {
-
     const BIB_REQUEST_TOKEN = 'BIB_REQUEST_TOKEN';
     const BIB_ACCESS_TOKEN = 'BIB_ACCESS_TOKEN';
 
@@ -46,7 +45,6 @@ class BibConsumer implements BibConsumerInterface
      * @var \OpenBibIdApi\Auth\CredentialsInterface
      */
     protected $credentials;
-
 
     /**
      * Creates a new BibConsumer.
@@ -195,25 +193,34 @@ class BibConsumer implements BibConsumerInterface
             'method' => \Zend\Http\Request::METHOD_GET,
         );
         $token = $client->getToken();
-        $urlParams = $options['urlParams'];
-        foreach ($urlParams as $key => $param) {
-            if (strpos($param, '{') === 0 && strpos($param, '}') === strlen($param) - 1) {
-                $param = $token->getParam(substr($param, 1, -1));
-            }
-            $url = str_replace($key, $param, $url);
-        }
-        $queryParams = $options['queryParams'];
-        foreach ($queryParams as $key => $param) {
-            if (strpos($param, '{') === 0 && strpos($param, '}') === strlen($param) - 1) {
-                $queryParams[$key] = $token->getParam(substr($param, 1, -1));
-            }
-        }
+
+        // Replace parameters in the url.
+        $urlReplacements = $this->getParameterReplacements($options['urlParams'], $token);
+        $url = str_replace(array_keys($urlReplacements), array_values($urlReplacements), $url);
+
+        // Replace query parameters.
+        $queryReplacements = $this->getParameterReplacements($options['queryParams'], $token);
+        $queryParams = array_merge($queryReplacements, $options['queryParams']);
+
+        // Set the request uri.
         $client->setUri($this->credentials->getEnvironment()->getBaseUrl() . $url);
-        $client->setParameterGet($queryParams);
+
+        // Set the parameters.
+        switch ($options['method']) {
+            case \Zend\Http\Request::METHOD_POST:
+                $client->setParameterPost($queryParams);
+                break;
+
+            case \Zend\Http\Request::METHOD_GET:
+            default:
+                $client->setParameterGet($queryParams);
+                break;
+        }
+
+        // Set the request method and send the request.
         $client->setMethod($options['method']);
         $response = $client->send();
 
-        $doc = new \DOMDocument();
         // Below are all possible error codes as described bij de api
         // documentation.
         switch ($response->getStatusCode()) {
@@ -232,8 +239,20 @@ class BibConsumer implements BibConsumerInterface
             case 421:
                 throw new BibException($response->getReasonPhrase(), $response->getStatusCode());
         }
+        $doc = new \DOMDocument();
         $doc->loadXML($response->getBody());
         return $doc;
+    }
+
+    protected function getParameterReplacements($parameters, \ZendOAuth\Token\TokenInterface $token)
+    {
+        $replacements = array();
+        foreach ($parameters as $key => $param) {
+            if (strpos($param, '{') === 0 && strpos($param, '}') === strlen($param) - 1) {
+                $replacements[$key] = $token->getParam(substr($param, 1, -1));
+            }
+        }
+        return $replacements;
     }
 
     /**

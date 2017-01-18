@@ -4,7 +4,6 @@ namespace OpenBibIdApi\Storage;
 
 interface StorageInterface
 {
-
     /**
      * Store a value.
      *

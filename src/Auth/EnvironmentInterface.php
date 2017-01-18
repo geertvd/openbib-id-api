@@ -4,7 +4,6 @@ namespace OpenBibIdApi\Auth;
 
 interface EnvironmentInterface
 {
-
     /**
      * Creates a new environment.
      *
@@ -36,7 +35,6 @@ interface EnvironmentInterface
      *   The request token url.
      */
     public function getRequestTokenUrl();
-
 
     /**
      * Get the access token url.

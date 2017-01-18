@@ -4,7 +4,6 @@ namespace OpenBibIdApi\Auth;
 
 class Environment implements EnvironmentInterface
 {
-
     /**
      * The name of the environment.
      *
@@ -41,7 +40,7 @@ class Environment implements EnvironmentInterface
      */
     public static function production()
     {
-        return new self('https://mijn.bibliotheek.be/openbibid/rest', 'prod');
+        return new static('https://mijn.bibliotheek.be/openbibid/rest', 'prod');
     }
 
     /**
@@ -52,7 +51,7 @@ class Environment implements EnvironmentInterface
      */
     public static function staging()
     {
-        return new self('https://staging-mijn.bibliotheek.be/openbibid/rest', 'staging');
+        return new static('https://staging-mijn.bibliotheek.be/openbibid/rest', 'staging');
     }
 
     /**
@@ -78,7 +77,6 @@ class Environment implements EnvironmentInterface
     {
         return $this->baseUrl. '/requestToken';
     }
-
 
     /**
      * {@inheritdoc}

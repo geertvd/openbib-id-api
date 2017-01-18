@@ -4,7 +4,6 @@ namespace OpenBibIdApi\Service;
 
 class UserService extends Service implements UserServiceInterface
 {
-
     /**
      * {@inheritdoc}
      */

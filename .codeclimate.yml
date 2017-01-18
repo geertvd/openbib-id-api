@@ -5,6 +5,9 @@ engines:
       standard: "PSR1,PSR2"
   phpmd:
     enabled: true
+    checks:
+      Controversial/Superglobals:
+        enabled: false
   duplication:
     enabled: true
     config:

@@ -6,7 +6,6 @@ use OpenBibIdApi\Consumer\BibConsumerInterface;
 
 abstract class Service implements ServiceInterface
 {
-
     /**
      * The consumer.
      *

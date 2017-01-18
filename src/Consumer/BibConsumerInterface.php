@@ -7,7 +7,6 @@ use OpenBibIdApi\Auth\CredentialsInterface;
 
 interface BibConsumerInterface
 {
-
     /**
      * Creates a new BibConsumer.
      *

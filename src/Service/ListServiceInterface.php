@@ -4,16 +4,12 @@ namespace OpenBibIdApi\Service;
 
 interface ListServiceInterface extends ServiceInterface
 {
-
     /**
      * Get the lists of the current logged in user.
      *
      * @return \DOMDocument|null
      *   A \DOMDocument containing the XML from the response, null if HTTP
      *   status code 204 (No content) was returned.
-     *
-     * @throws BibApi\Exception\BibException
-     *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
      */
     public function getUserLists();
 
@@ -26,9 +22,6 @@ interface ListServiceInterface extends ServiceInterface
      * @return \DOMDocument|null
      *   A \DOMDocument containing the XML from the response, null if HTTP
      *   status code 204 (No content) was returned.
-     *
-     * @throws BibApi\Exception\BibException
-     *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
      */
     public function getListById($listId);
 
@@ -43,9 +36,6 @@ interface ListServiceInterface extends ServiceInterface
      * @return \DOMDocument|null
      *   A \DOMDocument containing the XML from the response, null if HTTP
      *   status code 204 (No content) was returned.
-     *
-     * @throws BibApi\Exception\BibException
-     *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
      */
     public function getCatalogItems($libId, $itemId);
 
@@ -58,9 +48,6 @@ interface ListServiceInterface extends ServiceInterface
      * @return \DOMDocument|null
      *   A \DOMDocument containing the XML from the response, null if HTTP
      *   status code 204 (No content) was returned.
-     *
-     * @throws BibApi\Exception\BibException
-     *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
      */
     public function getListItems($listId);
 }

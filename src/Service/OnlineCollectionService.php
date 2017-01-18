@@ -4,7 +4,6 @@ namespace OpenBibIdApi\Service;
 
 class OnlineCollectionService extends Service implements OnlineCollectionServiceInterface
 {
-
     /**
      * {@inheritdoc}
      */

@@ -4,16 +4,12 @@ namespace OpenBibIdApi\Service;
 
 interface UserServiceInterface extends ServiceInterface
 {
-
     /**
      * Get the user info of the currently logged in user.
      *
      * @return \DOMDocument|null
      *   A \DOMDocument containing the XML from the response, null if HTTP
      *   status code 204 (No content) was returned.
-     *
-     * @throws BibApi\Exception\BibException
-     *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
      */
     public function getUserInfo();
 
@@ -23,9 +19,6 @@ interface UserServiceInterface extends ServiceInterface
      * @return \DOMDocument|null
      *   A \DOMDocument containing the XML from the response, null if HTTP
      *   status code 204 (No content) was returned.
-     *
-     * @throws BibApi\Exception\BibException
-     *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
      */
     public function getUserProfile();
 
@@ -35,9 +28,6 @@ interface UserServiceInterface extends ServiceInterface
      * @return \DOMDocument|null
      *   A \DOMDocument containing the XML from the response, null if HTTP
      *   status code 204 (No content) was returned.
-     *
-     * @throws BibApi\Exception\BibException
-     *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
      */
     public function getUserAvailableOnlineCollections();
 
@@ -47,9 +37,6 @@ interface UserServiceInterface extends ServiceInterface
      * @return \DOMDocument|null
      *   A \DOMDocument containing the XML from the response, null if HTTP
      *   status code 204 (No content) was returned.
-     *
-     * @throws BibApi\Exception\BibException
-     *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
      */
     public function getUserLibraryAccounts();
 
@@ -62,9 +49,6 @@ interface UserServiceInterface extends ServiceInterface
      * @return \DOMDocument|null
      *   A \DOMDocument containing the XML from the response, null if HTTP
      *   status code 204 (No content) was returned.
-     *
-     * @throws BibApi\Exception\BibException
-     *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
      */
     public function getUserLibraryAccount($accountId);
 
@@ -77,9 +61,6 @@ interface UserServiceInterface extends ServiceInterface
      * @return \DOMDocument|null
      *   A \DOMDocument containing the XML from the response, null if HTTP
      *   status code 204 (No content) was returned.
-     *
-     * @throws BibApi\Exception\BibException
-     *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
      */
     public function getUserActivities($accountId);
 
@@ -93,9 +74,6 @@ interface UserServiceInterface extends ServiceInterface
      * @return \DOMDocument|null
      *   A \DOMDocument containing the XML from the response, null if HTTP
      *   status code 204 (No content) was returned.
-     *
-     * @throws BibApi\Exception\BibException
-     *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
      */
     public function getUserLoanHistory($accountId);
 
@@ -105,9 +83,6 @@ interface UserServiceInterface extends ServiceInterface
      * @return \DOMDocument|null
      *   A \DOMDocument containing the XML from the response, null if HTTP
      *   status code 204 (No content) was returned.
-     *
-     * @throws BibApi\Exception\BibException
-     *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
      */
     public function getUserWelcomeMessages();
 
@@ -117,9 +92,6 @@ interface UserServiceInterface extends ServiceInterface
      * @return \DOMDocument|null
      *   A \DOMDocument containing the XML from the response, null if HTTP
      *   status code 204 (No content) was returned.
-     *
-     * @throws BibApi\Exception\BibException
-     *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
      */
     public function getUserLibraryList();
 
@@ -133,9 +105,6 @@ interface UserServiceInterface extends ServiceInterface
      * @return \DOMDocument|null
      *   A \DOMDocument containing the XML from the response, null if HTTP
      *   status code 204 (No content) was returned.
-     *
-     * @throws BibApi\Exception\BibException
-     *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
      */
     public function getUserLibraryListAndOnlineCollection($collectionKey);
 }
