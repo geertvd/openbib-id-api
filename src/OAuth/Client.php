@@ -2,6 +2,7 @@
 
 namespace OpenBibIdApi\OAuth;
 
+use Zend\Stdlib\ArrayUtils;
 use ZendOAuth\Client as OAuthClient;
 use ZendOAuth\Token\Access;
 
@@ -12,7 +13,7 @@ class Client extends OAuthClient
      */
     public function __construct($oauthOptions, $uri = null, $config = null) {
       if ($oauthOptions !== null) {
-          if ($oauthOptions instanceof Traversable) {
+          if ($oauthOptions instanceof \Traversable) {
               $oauthOptions = ArrayUtils::iteratorToArray($oauthOptions);
           }
           if (!isset($oauthOptions['token'])) {
