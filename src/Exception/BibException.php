@@ -1,5 +1,6 @@
 <?php
 namespace OpenBibIdApi\Exception;
 
-class BibException extends \Exception {
+class BibException extends \Exception
+{
 }
