@@ -4,12 +4,12 @@ namespace OpenBibIdApi\Consumer;
 
 use OpenBibIdApi\Auth\CredentialsInterface;
 use OpenBibIdApi\Exception\BibException;
+use OpenBibIdApi\OAuth\Client as OpenBibOAuthClient;
 use OpenBibIdApi\Storage\SessionStorage;
 use OpenBibIdApi\Storage\StorageInterface;
-use ZendOAuth\Client;
+use ZendOAuth\Client as ZendOAuthClient;
 use ZendOAuth\Consumer;
 use ZendOAuth\Exception\InvalidArgumentException;
-use ZendOAuth\Token\Access;
 use ZendOAuth\Token\TokenInterface;
 
 class BibConsumer implements BibConsumerInterface
@@ -67,7 +67,9 @@ class BibConsumer implements BibConsumerInterface
             'authorizeUrl' => $credentials->getEnvironment()->getAuthorizeUrl(),
         );
         $this->consumer = new Consumer($this->oauthConfig);
-        $this->storage = is_null($storage) ? new SessionStorage($credentials->getEnvironment()->getName()) : $storage;
+        $this->storage = is_null($storage)
+            ? new SessionStorage($credentials->getEnvironment()->getName())
+            : $storage;
     }
 
     /**
@@ -101,8 +103,7 @@ class BibConsumer implements BibConsumerInterface
             $this->fetchRequestToken();
         }
         $config = $this->oauthConfig;
-        $client = new Client($config);
-        $client->setToken(new Access());
+        $client = new OpenBibOAuthClient($config);
         return $this->doRequest(
             $client,
             $url,
@@ -145,8 +146,7 @@ class BibConsumer implements BibConsumerInterface
             $this->fetchRequestToken();
         }
         $config = $this->oauthConfig;
-        $client = new Client($config);
-        $client->setToken(new Access());
+        $client = new OpenBibOAuthClient($config);
         return $this->doRequest(
             $client,
             $url,
@@ -186,7 +186,7 @@ class BibConsumer implements BibConsumerInterface
      * @throws BibApi\Exception\BibException
      *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
      */
-    protected function doRequest(Client $client, $url, $options = array())
+    protected function doRequest(ZendOAuthClient $client, $url, $options = array())
     {
         $options += array(
             'urlParams' => array(),
@@ -295,6 +295,9 @@ class BibConsumer implements BibConsumerInterface
      *   Internal use only.
      *
      * @return $this
+     *
+     * @throws \ZendOAuth\Exception\InvalidArgumentException
+     *   On invalid authorization token.
      */
     protected function fetchAccessToken($queryData, $retry = true)
     {
@@ -377,12 +380,16 @@ class BibConsumer implements BibConsumerInterface
      */
     protected function getCurrentUri()
     {
-        $uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : false;
+        $uri = isset($_SERVER['REQUEST_URI'])
+            ? $_SERVER['REQUEST_URI']
+            : false;
         if (!$uri) {
             $uri = $_SERVER['SCRIPT_NAME'];
             if (isset($_SERVER['argv']) || isset($_SERVER['QUERY_STRING'])) {
                 $uri .= '?';
-                $uri .= isset($_SERVER['argv']) ? $_SERVER['argv'][0] : $_SERVER['QUERY_STRING'];
+                $uri .= isset($_SERVER['argv'])
+                    ? $_SERVER['argv'][0]
+                    : $_SERVER['QUERY_STRING'];
             }
         }
         return 'http'

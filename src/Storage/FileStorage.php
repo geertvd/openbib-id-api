@@ -28,7 +28,9 @@ class FileStorage implements StorageInterface
     public function get($key, $default = null)
     {
         $key = $this->path . $key . '.txt';
-        return file_exists($key) ? unserialize(file_get_contents($key)) : $default;
+        return file_exists($key)
+            ? unserialize(file_get_contents($key))
+            : $default;
     }
 
     /**

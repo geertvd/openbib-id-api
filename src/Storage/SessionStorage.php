@@ -28,7 +28,9 @@ class SessionStorage implements StorageInterface
     public function get($key, $default = null)
     {
         $key = $this->prefix . $key;
-        return isset($_SESSION[$key]) ? unserialize($_SESSION[$key]) : $default;
+        return isset($_SESSION[$key])
+            ? unserialize($_SESSION[$key])
+            : $default;
     }
 
     /**
