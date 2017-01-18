@@ -10,6 +10,7 @@ use ZendOAuth\Client;
 use ZendOAuth\Consumer;
 use ZendOAuth\Exception\InvalidArgumentException;
 use ZendOAuth\Token\Access;
+use ZendOAuth\Token\TokenInterface;
 
 class BibConsumer implements BibConsumerInterface
 {
@@ -200,7 +201,7 @@ class BibConsumer implements BibConsumerInterface
 
         // Replace query parameters.
         $queryReplacements = $this->getParameterReplacements($options['queryParams'], $token);
-        $queryParams = array_merge($queryReplacements, $options['queryParams']);
+        $queryParams = array_merge($options['queryParams'], $queryReplacements);
 
         // Set the request uri.
         $client->setUri($this->credentials->getEnvironment()->getBaseUrl() . $url);
@@ -244,7 +245,20 @@ class BibConsumer implements BibConsumerInterface
         return $doc;
     }
 
-    protected function getParameterReplacements($parameters, \ZendOAuth\Token\TokenInterface $token)
+    /**
+     * Replace values in an array with parameters from a token.
+     *
+     * @param array $parameters
+     *   An array with parameters to replace. Values surrounded with {} will be
+     *   replaced with their corresponding token parameter.
+     * @param \ZendOAuth\Token\TokenInterface $token
+     *   The token with the parameters.
+     *
+     * @return array
+     *   An array of replacements, keyed by the corresponding array key in
+     *   $parameters.
+     */
+    protected function getParameterReplacements($parameters, TokenInterface $token)
     {
         $replacements = array();
         foreach ($parameters as $key => $param) {
