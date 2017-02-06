@@ -122,14 +122,14 @@ class UserService extends Service implements UserServiceInterface
     public function cancelReservation($accountId, $docNumber, $itemSequence, $recNumber, $sequence)
     {
         return $this->consumer->post(
-          '/libraryaccounts/:id/hold/cancel',
-          array(':id' => $accountId),
-          array(
-            'docNumber' => $docNumber,
-            'itemSequence' => $itemSequence,
-            'recNumber' => $recNumber,
-            'sequence' => $sequence,
-          )
+            '/libraryaccounts/:id/hold/cancel',
+            array(':id' => $accountId),
+            array(
+                'docNumber' => $docNumber,
+                'itemSequence' => $itemSequence,
+                'recNumber' => $recNumber,
+                'sequence' => $sequence,
+            )
         );
     }
 }
