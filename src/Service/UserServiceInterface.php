@@ -107,4 +107,22 @@ interface UserServiceInterface extends ServiceInterface
      *   status code 204 (No content) was returned.
      */
     public function getUserLibraryListAndOnlineCollection($collectionKey);
+
+    /**
+     * @param string $accountId
+     *   The id of the library account.
+     * @param string $docNumber
+     *   The document number of the reserved material.
+     * @param string $itemSequence
+     *   The item sequence of the reserved material.
+     * @param $recNumber
+     *   The request number of the reservation.
+     * @param $sequence
+     *   The sequence of the reservation.
+     *
+     * @return \DOMDocument|null
+     *   A \DOMDocument containing the XML from the response, null if HTTP
+     *   status code 204 (No content) was returned.
+     */
+    public function cancelReservation($accountId, $docNumber, $itemSequence, $recNumber, $sequence);
 }

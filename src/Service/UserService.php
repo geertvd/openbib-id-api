@@ -115,4 +115,21 @@ class UserService extends Service implements UserServiceInterface
             array('uid' => '{userId}', 'consumerKey' => $collectionKey)
         );
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function cancelReservation($accountId, $docNumber, $itemSequence, $recNumber, $sequence)
+    {
+        return $this->consumer->post(
+          '/libraryaccounts/:id/hold/cancel',
+          array(':id' => $accountId),
+          array(
+            'docNumber' => $docNumber,
+            'itemSequence' => $itemSequence,
+            'recNumber' => $recNumber,
+            'sequence' => $sequence,
+          )
+        );
+    }
 }
