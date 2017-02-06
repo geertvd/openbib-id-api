@@ -2,6 +2,9 @@
 
 namespace OpenBibIdApi\Service;
 
+use OpenBibIdApi\Value\UserActivities\UserActivities;
+use OpenBibIdApi\Value\UserActivities\UserActivitiesInterface;
+
 interface UserServiceInterface extends ServiceInterface
 {
     /**
@@ -58,9 +61,8 @@ interface UserServiceInterface extends ServiceInterface
      * @param string $accountId
      *   The id of a library account.
      *
-     * @return \DOMDocument|null
-     *   A \DOMDocument containing the XML from the response, null if HTTP
-     *   status code 204 (No content) was returned.
+     * @return UserActivitiesInterface
+     *   An object containing information about user activities.
      */
     public function getUserActivities($accountId);
 
