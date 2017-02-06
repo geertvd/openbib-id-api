@@ -111,6 +111,7 @@ class UserActivities implements ValueInterface
      *   The xml tree containing the user activities.
      *
      * @return UserActivities
+     *   A UserActivities object.
      */
     public static function fromXml()
     {

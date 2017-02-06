@@ -2,9 +2,10 @@
 
 namespace OpenBibIdApi\Value\Structure;
 
+use OpenBibIdApi\Value\StringLiteral\StringLiteral;
 use OpenBibIdApi\Value\ValueInterface;
 
-class Collection implements \IteratorAggregate
+class Collection implements \IteratorAggregate, ValueInterface
 {
     /**
      * An array of objects implementing ValueInterface.
@@ -23,6 +24,28 @@ class Collection implements \IteratorAggregate
     {
         $this->items = $items;
     }
+
+    /**
+     * Builds a Collection object from XML.
+     *
+     * @param \DOMNodeList
+     *   The list of xml tags.
+     *
+     * @return Collection
+     *   A Collection object.
+     */
+    public static function fromXml()
+    {
+        /* @var \DOMNodeList $xml */
+        $xml = func_get_arg(0);
+
+        $items = array();
+        foreach ($xml as $xmlTag) {
+            $items[] = StringLiteral::fromXml($xmlTag);
+        }
+        return new static($items);
+    }
+
 
     /**
      * {@inheritdoc}
