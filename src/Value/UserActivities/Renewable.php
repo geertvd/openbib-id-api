@@ -64,7 +64,7 @@ class Renewable implements ValueInterface, FromDomElement
      */
     public function isRenewable()
     {
-        return $this->isRenewable->getValue();
+        return $this->isRenewable->isTrue();
     }
 
     /**
@@ -88,5 +88,4 @@ class Renewable implements ValueInterface, FromDomElement
     {
         return $this->cost;
     }
-
 }

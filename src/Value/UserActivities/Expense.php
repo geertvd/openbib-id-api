@@ -23,7 +23,7 @@ class Expense implements ValueInterface, FromDomElement
      *
      * @var StringLiteral
      */
-    private $id;
+    private $expenseId;
 
     /**
      * The date of the expense.
@@ -81,7 +81,6 @@ class Expense implements ValueInterface, FromDomElement
     {
     }
 
-
     /**
      * Builds a Expense object from XML.
      *
@@ -94,7 +93,7 @@ class Expense implements ValueInterface, FromDomElement
     public static function fromXml(\DOMElement $xml)
     {
         $static = new static();
-        $static->id = StringLiteral::fromXml($xml->getElementsByTagName('id'));
+        $static->expenseId = StringLiteral::fromXml($xml->getElementsByTagName('id'));
         $static->date = DateTime::fromXml($xml->getElementsByTagName('date'));
         $static->title = StringLiteral::fromXml($xml->getElementsByTagName('title'));
         $static->description = StringLiteral::fromXml($xml->getElementsByTagName('description'));
@@ -114,7 +113,7 @@ class Expense implements ValueInterface, FromDomElement
      */
     public function getId()
     {
-        return $this->id;
+        return $this->expenseId;
     }
 
     /**
@@ -193,5 +192,4 @@ class Expense implements ValueInterface, FromDomElement
     {
         return $this->type;
     }
-
 }

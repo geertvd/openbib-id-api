@@ -70,5 +70,4 @@ class DateTimeRange implements ValueInterface
     {
         return $this->end;
     }
-
 }
