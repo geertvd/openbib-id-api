@@ -3,12 +3,12 @@
 namespace OpenBibIdApi\Value\UserActivities;
 
 use OpenBibIdApi\Value\DateTime\DateTime;
-use OpenBibIdApi\Value\FromDomElement;
+use OpenBibIdApi\Value\FromDomElementInterface;
 use OpenBibIdApi\Value\StringLiteral\Path;
 use OpenBibIdApi\Value\StringLiteral\StringLiteral;
 use OpenBibIdApi\Value\ValueInterface;
 
-class Expense implements ValueInterface, FromDomElement
+class Expense implements ValueInterface, FromDomElementInterface
 {
     /**
      * Constants describing the type of expense.
@@ -100,23 +100,19 @@ class Expense implements ValueInterface, FromDomElement
         $date = $xml->getElementsByTagName('date');
         $static->date = DateTime::fromXml($date);
 
-        $title = $xml->getElementsByTagName('title');
-        $static->title = StringLiteral::fromXml($title);
-
-        $description = $xml->getElementsByTagName('description');
-        $static->description = StringLiteral::fromXml($description);
-
-        $amount = $xml->getElementsByTagName('amount');
-        $static->amount = StringLiteral::fromXml($amount);
-
-        $docNumber = $xml->getElementsByTagName('docNumber');
-        $static->docNumber = StringLiteral::fromXml($docNumber);
-
         $docUrl = $xml->getElementsByTagName('docUrl');
         $static->docUrl = Path::fromXml($docUrl);
 
-        $type = $xml->getElementsByTagName('type');
-        $static->type = StringLiteral::fromXml($type);
+        $stringLiterals = array(
+            'title' => $xml->getElementsByTagName('title'),
+            'description' => $xml->getElementsByTagName('description'),
+            'amount' => $xml->getElementsByTagName('amount'),
+            'docNumber' => $xml->getElementsByTagName('docNumber'),
+            'type' => $xml->getElementsByTagName('type'),
+        );
+        foreach ($stringLiterals as $propertyName => $xmlTag) {
+            $static->$propertyName = StringLiteral::fromXml($xmlTag);
+        }
 
         return $static;
     }

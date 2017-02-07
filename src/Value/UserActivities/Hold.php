@@ -99,18 +99,6 @@ class Hold extends Activity
         $static->libraryItemMetadata = LibraryItemMetadata::fromXml($xml);
         $static->pickupLocation = PickupLocation::fromXml($xml);
 
-        $requestNumber = $xml->getElementsByTagName('requestNumber');
-        $static->requestNumber = StringLiteral::fromXml($requestNumber);
-
-        $sequence = $xml->getElementsByTagName('sequence');
-        $static->sequence = StringLiteral::fromXml($sequence);
-
-        $queuePosition = $xml->getElementsByTagName('queuePosition');
-        $static->queuePosition = StringLiteral::fromXml($queuePosition);
-
-        $itemSequence = $xml->getElementsByTagName('itemSequence');
-        $static->itemSequence = StringLiteral::fromXml($itemSequence);
-
         $requestStartDate = $xml->getElementsByTagName('requestDate');
         $requestEndDate = $xml->getElementsByTagName('endRequestDate');
         $static->requestDateRange = DateTimeRange::fromXml($requestStartDate, $requestEndDate);
@@ -119,11 +107,19 @@ class Hold extends Activity
         $holdEndDate = $xml->getElementsByTagName('endHoldDate');
         $static->holdDateRange = DateTimeRange::fromXml($holdStartDate, $holdEndDate);
 
-        $status = $xml->getElementsByTagName('status');
-        $static->status = StringLiteral::fromXml($status);
-
         $cancelable = $xml->getElementsByTagName('cancelable');
         $static->cancelable = BoolLiteral::fromXml($cancelable);
+
+        $stringLiterals = array(
+            'requestNumber' => $xml->getElementsByTagName('requestNumber'),
+            'sequence' => $xml->getElementsByTagName('sequence'),
+            'queuePosition' => $xml->getElementsByTagName('queuePosition'),
+            'itemSequence' => $xml->getElementsByTagName('itemSequence'),
+            'status' => $xml->getElementsByTagName('status'),
+        );
+        foreach ($stringLiterals as $propertyName => $xmlTag) {
+            $static->$propertyName = StringLiteral::fromXml($xmlTag);
+        }
 
         return $static;
     }

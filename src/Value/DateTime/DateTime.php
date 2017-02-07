@@ -2,10 +2,10 @@
 
 namespace OpenBibIdApi\Value\DateTime;
 
-use OpenBibIdApi\Value\FromDomNodeList;
+use OpenBibIdApi\Value\FromDomNodeListInterface;
 use OpenBibIdApi\Value\ValueInterface;
 
-class DateTime implements ValueInterface, FromDomNodeList
+class DateTime implements ValueInterface, FromDomNodeListInterface
 {
     /**
      * The DateTimeImmutable object.

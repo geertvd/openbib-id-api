@@ -1,16 +1,16 @@
 <?php
 namespace OpenBibIdApi\Value;
 
-interface FromDomNodeList
+interface FromDomElementInterface
 {
     /**
      * Builds a ValueInterface from XML.
      *
-     * @param \DOMNodeList $xml
-     *   A DOMNodeList object.
+     * @param \DOMElement $xml
+     *   A DOMElement object.
      *
      * @return ValueInterface
      *   An object implementing ValueInterface.
      */
-    public static function fromXml(\DOMNodeList $xml);
+    public static function fromXml(\DOMElement $xml);
 }

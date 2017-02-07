@@ -3,11 +3,11 @@
 namespace OpenBibIdApi\Value\UserActivities;
 
 use OpenBibIdApi\Value\Boolean\BoolLiteral;
-use OpenBibIdApi\Value\FromDomDocument;
+use OpenBibIdApi\Value\FromDomDocumentInterface;
 use OpenBibIdApi\Value\StringLiteral\StringLiteral;
 use OpenBibIdApi\Value\ValueInterface;
 
-class UserActivities implements ValueInterface, FromDomDocument
+class UserActivities implements ValueInterface, FromDomDocumentInterface
 {
     /**
      * A collection of loan objects.

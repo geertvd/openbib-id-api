@@ -2,10 +2,10 @@
 
 namespace OpenBibIdApi\Value\UserActivities;
 
-use OpenBibIdApi\Value\FromDomElement;
+use OpenBibIdApi\Value\FromDomElementInterface;
 use OpenBibIdApi\Value\ValueInterface;
 
-class Activity implements ValueInterface, FromDomElement
+class Activity implements ValueInterface, FromDomElementInterface
 {
     /**
      * Metadata concerning the library item.

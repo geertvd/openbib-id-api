@@ -3,11 +3,11 @@
 namespace OpenBibIdApi\Value\UserActivities;
 
 use OpenBibIdApi\Value\Boolean\BoolLiteral;
-use OpenBibIdApi\Value\FromDomElement;
+use OpenBibIdApi\Value\FromDomElementInterface;
 use OpenBibIdApi\Value\StringLiteral\StringLiteral;
 use OpenBibIdApi\Value\ValueInterface;
 
-class Renewable implements ValueInterface, FromDomElement
+class Renewable implements ValueInterface, FromDomElementInterface
 {
     /**
      * Whether or not the item is renewable.

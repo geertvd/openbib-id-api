@@ -2,12 +2,12 @@
 
 namespace OpenBibIdApi\Value\UserActivities;
 
-use OpenBibIdApi\Value\FromDomElement;
+use OpenBibIdApi\Value\FromDomElementInterface;
 use OpenBibIdApi\Value\StringLiteral\Path;
 use OpenBibIdApi\Value\StringLiteral\StringLiteral;
 use OpenBibIdApi\Value\ValueInterface;
 
-class LibraryItemMetadata implements ValueInterface, FromDomElement
+class LibraryItemMetadata implements ValueInterface, FromDomElementInterface
 {
     /**
      * The title of the library item.

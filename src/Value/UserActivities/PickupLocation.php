@@ -2,11 +2,11 @@
 
 namespace OpenBibIdApi\Value\UserActivities;
 
-use OpenBibIdApi\Value\FromDomElement;
+use OpenBibIdApi\Value\FromDomElementInterface;
 use OpenBibIdApi\Value\StringLiteral\StringLiteral;
 use OpenBibIdApi\Value\ValueInterface;
 
-class PickupLocation implements ValueInterface, FromDomElement
+class PickupLocation implements ValueInterface, FromDomElementInterface
 {
     /**
      * The PBS code of the pickup location.
