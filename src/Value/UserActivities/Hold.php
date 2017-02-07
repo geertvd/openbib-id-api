@@ -78,81 +78,37 @@ class Hold extends Activity
     private $cancelable;
 
     /**
-     * Creates a new Hold.
-     *
-     * @param LibraryItemMetadata $libraryItemMetadata
-     *   Metadata concerning the library item.
-     * @param StringLiteral $requestNumber
-     *   The hold item's request number.
-     * @param StringLiteral $sequence
-     *   The hold item's sequence number.
-     * @param StringLiteral $queuePosition
-     *   The hold item's queue position.
-     * @param StringLiteral $itemSequence
-     *   The hold item's item sequence number.
-     * @param DateTimeRange $requestDateRange
-     *   The date range range in which the hold item can be picked up.
-     * @param DateTimeRange $holdDateRange
-     *   The date range range in which the hold item is reserved.
-     * @param StringLiteral $status
-     *   The status of the reservation.
-     * @param PickupLocation $pickupLocation
-     *   The pickup location.
-     * @param BoolLiteral $cancelable
-     *   Whether the reservation can be cancelled.
+     * Force the use of static methods to create Hold objects.
      */
-    public function __construct(
-        LibraryItemMetadata $libraryItemMetadata,
-        StringLiteral $requestNumber,
-        StringLiteral $sequence,
-        StringLiteral $queuePosition,
-        StringLiteral $itemSequence,
-        DateTimeRange $requestDateRange,
-        DateTimeRange $holdDateRange,
-        StringLiteral $status,
-        PickupLocation $pickupLocation,
-        BoolLiteral $cancelable
-    ) {
-        parent::__construct($libraryItemMetadata);
-        $this->requestNumber = $requestNumber;
-        $this->sequence = $sequence;
-        $this->queuePosition = $queuePosition;
-        $this->itemSequence = $itemSequence;
-        $this->requestDateRange = $requestDateRange;
-        $this->holdDateRange = $holdDateRange;
-        $this->status = $status;
-        $this->pickupLocation = $pickupLocation;
-        $this->cancelable = $cancelable;
+    private function __construct()
+    {
     }
 
     /**
      * Builds a Hold object from XML.
      *
-     * @param \DOMElement
+     * @param \DOMElement $xml
      *   The xml element containing the hold.
      *
      * @return Hold
      *   A Hold object.
      */
-    public static function fromXml()
+    public static function fromXml(\DOMElement $xml)
     {
-        /* @var \DOMElement $xml */
-        $xml = func_get_arg(0);
-
-        return new static(
-            LibraryItemMetadata::fromXml($xml),
-            StringLiteral::fromXml($xml->getElementsByTagName('requestNumber')),
-            StringLiteral::fromXml($xml->getElementsByTagName('sequence')),
-            StringLiteral::fromXml($xml->getElementsByTagName('queuePosition')),
-            StringLiteral::fromXml($xml->getElementsByTagName('itemSequence')),
-            DateTimeRange::fromXml($xml->getElementsByTagName('requestDate'),
-                $xml->getElementsByTagName('endRequestDate')),
-            DateTimeRange::fromXml($xml->getElementsByTagName('holdDate'),
-                $xml->getElementsByTagName('endHoldDate')),
-            StringLiteral::fromXml($xml->getElementsByTagName('status')),
-            PickupLocation::fromXml($xml),
-            BoolLiteral::fromXml($xml->getElementsByTagName('cancelable'))
-        );
+        $static = new static();
+        $static->libraryItemMetadata = LibraryItemMetadata::fromXml($xml);
+        $static->requestNumber = StringLiteral::fromXml($xml->getElementsByTagName('requestNumber'));
+        $static->sequence = StringLiteral::fromXml($xml->getElementsByTagName('sequence'));
+        $static->queuePosition = StringLiteral::fromXml($xml->getElementsByTagName('queuePosition'));
+        $static->itemSequence = StringLiteral::fromXml($xml->getElementsByTagName('itemSequence'));
+        $static->requestDateRange = DateTimeRange::fromXml($xml->getElementsByTagName('requestDate'),
+            $xml->getElementsByTagName('endRequestDate'));
+        $static->holdDateRange = DateTimeRange::fromXml($xml->getElementsByTagName('holdDate'),
+            $xml->getElementsByTagName('endHoldDate'));
+        $static->status = StringLiteral::fromXml($xml->getElementsByTagName('status'));
+        $static->pickupLocation = PickupLocation::fromXml($xml);
+        $static->cancelable = BoolLiteral::fromXml($xml->getElementsByTagName('cancelable'));
+        return $static;
     }
 
     /**

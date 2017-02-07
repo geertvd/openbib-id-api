@@ -2,10 +2,11 @@
 
 namespace OpenBibIdApi\Value\Structure;
 
+use OpenBibIdApi\Value\FromDomNodeList;
 use OpenBibIdApi\Value\StringLiteral\StringLiteral;
 use OpenBibIdApi\Value\ValueInterface;
 
-class Collection implements \IteratorAggregate, ValueInterface
+class Collection implements \IteratorAggregate, ValueInterface, FromDomNodeList
 {
     /**
      * An array of objects implementing ValueInterface.
@@ -20,7 +21,7 @@ class Collection implements \IteratorAggregate, ValueInterface
      * @param ValueInterface[] $items
      *   An array of objects implementing ValueInterface.
      */
-    public function __construct(array $items)
+    protected function __construct(array $items)
     {
         $this->items = $items;
     }
@@ -28,17 +29,14 @@ class Collection implements \IteratorAggregate, ValueInterface
     /**
      * Builds a Collection object from XML.
      *
-     * @param \DOMNodeList
+     * @param \DOMNodeList $xml
      *   The list of xml tags.
      *
      * @return Collection
      *   A Collection object.
      */
-    public static function fromXml()
+    public static function fromXml(\DOMNodeList $xml)
     {
-        /* @var \DOMNodeList $xml */
-        $xml = func_get_arg(0);
-
         $items = array();
         foreach ($xml as $xmlTag) {
             $items[] = StringLiteral::create($xmlTag->textContent);
@@ -63,6 +61,7 @@ class Collection implements \IteratorAggregate, ValueInterface
     public function first()
     {
         $this->getIterator()->rewind();
-        return $this->getIterator()->count() ? $this->getIterator()->current() : false;
+        return $this->getIterator()->count() ? $this->getIterator()
+            ->current() : false;
     }
 }

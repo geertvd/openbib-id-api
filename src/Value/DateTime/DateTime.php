@@ -2,9 +2,10 @@
 
 namespace OpenBibIdApi\Value\DateTime;
 
+use OpenBibIdApi\Value\FromDomNodeList;
 use OpenBibIdApi\Value\ValueInterface;
 
-class DateTime implements ValueInterface
+class DateTime implements ValueInterface, FromDomNodeList
 {
     /**
      * The DateTimeImmutable object.
@@ -19,7 +20,7 @@ class DateTime implements ValueInterface
      * @param \DateTimeImmutable $value
      *   The DateTimeImmutable object.
      */
-    protected function __construct($value)
+    private function __construct($value)
     {
         $this->value = $value;
     }
@@ -27,17 +28,14 @@ class DateTime implements ValueInterface
     /**
      * Builds a DateTime object from XML.
      *
-     * @param \DOMNodeList
+     * @param \DOMNodeList $xml
      *   The xml tag containing the date.
      *
      * @return DateTime
      *   A DateTime object.
      */
-    public static function fromXml()
+    public static function fromXml(\DOMNodeList $xml)
     {
-        /* @var \DOMNodeList $xml */
-        $xml = func_get_arg(0);
-
         $value = null;
         if ($xml->length > 0) {
             $value = new \DateTimeImmutable($xml->item(0)->textContent);

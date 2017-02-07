@@ -3,10 +3,11 @@
 namespace OpenBibIdApi\Value\UserActivities;
 
 use OpenBibIdApi\Value\Boolean\BoolLiteral;
+use OpenBibIdApi\Value\FromDomDocument;
 use OpenBibIdApi\Value\StringLiteral\StringLiteral;
 use OpenBibIdApi\Value\ValueInterface;
 
-class UserActivities implements ValueInterface
+class UserActivities implements ValueInterface, FromDomDocument
 {
     /**
      * A collection of loan objects.
@@ -65,69 +66,34 @@ class UserActivities implements ValueInterface
     private $loanHistoryConfigurable;
 
     /**
-     * Creates a new UserActivities object.
-     *
-     * @param LoanCollection $loans
-     *   A collection of loan objects.
-     * @param LoanCollection $loanHistory
-     *   A historical collection of loan objects.
-     * @param HoldCollection $holds
-     *   A collection of hold objects.
-     * @param ExpenseCollection $expenses
-     *   A collection of expense objects.
-     * @param StringLiteral $totalFine
-     *   The total of all open fines.
-     * @param StringLiteral $totalExpense
-     *   The total of all open expenses.
-     * @param StringLiteral $message
-     *   A message to be shown to the user.
-     * @param BoolLiteral $loanHistoryConfigurable
-     *   Determines whether the loan history can be turned on or off.
+     * Force the use of static methods to create UserActivities objects.
      */
-    public function __construct(
-        LoanCollection $loans,
-        LoanCollection $loanHistory,
-        HoldCollection $holds,
-        ExpenseCollection $expenses,
-        StringLiteral $totalFine,
-        StringLiteral $totalExpense,
-        StringLiteral $message,
-        BoolLiteral $loanHistoryConfigurable
-    ) {
-        $this->loans = $loans;
-        $this->loanHistory = $loanHistory;
-        $this->holds = $holds;
-        $this->expenses = $expenses;
-        $this->totalFine = $totalFine;
-        $this->totalExpense = $totalExpense;
-        $this->message = $message;
-        $this->loanHistoryConfigurable = $loanHistoryConfigurable;
+    private function __construct()
+    {
     }
 
     /**
      * Builds a UserActivities object from XML.
      *
-     * @param \DomDocument
+     * @param \DomDocument $xml
      *   The xml tree containing the user activities.
      *
      * @return UserActivities
      *   A UserActivities object.
      */
-    public static function fromXml()
+    public static function fromXml(\DOMDocument $xml)
     {
-        /* @var \DOMDocument $xml */
-        $xml = func_get_arg(0);
+        $static = new static();
+        $static->loans = LoanCollection::fromXml($xml->getElementsByTagName('loan'));
+        $static->loanHistory = LoanCollection::fromXml($xml->getElementsByTagName('loanHistory'));
+        $static->holds = HoldCollection::fromXml($xml->getElementsByTagName('hold'));
+        $static->expenses = ExpenseCollection::fromXml($xml->getElementsByTagName('fine'));
+        $static->totalFine = StringLiteral::fromXml($xml->getElementsByTagName('TotalFine'));
+        $static->totalExpense = StringLiteral::fromXml($xml->getElementsByTagName('totalExpense'));
+        $static->message = StringLiteral::fromXml($xml->getElementsByTagName('message'));
+        $static->loanHistoryConfigurable = BoolLiteral::fromXml($xml->getElementsByTagName('loanHistoryConfigurable'));
 
-        return new static(
-            LoanCollection::fromXml($xml->getElementsByTagName('loan')),
-            LoanCollection::fromXml($xml->getElementsByTagName('loanHistory')),
-            HoldCollection::fromXml($xml->getElementsByTagName('hold')),
-            ExpenseCollection::fromXml($xml->getElementsByTagName('fine')),
-            StringLiteral::fromXml($xml->getElementsByTagName('TotalFine')),
-            StringLiteral::fromXml($xml->getElementsByTagName('totalExpense')),
-            StringLiteral::fromXml($xml->getElementsByTagName('message')),
-            BoolLiteral::fromXml($xml->getElementsByTagName('loanHistoryConfigurable'))
-        );
+        return $static;
     }
 
     /**

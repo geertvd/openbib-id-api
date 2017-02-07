@@ -2,9 +2,10 @@
 
 namespace OpenBibIdApi\Value\StringLiteral;
 
+use OpenBibIdApi\Value\FromDomNodeList;
 use OpenBibIdApi\Value\ValueInterface;
 
-class StringLiteral implements ValueInterface
+class StringLiteral implements ValueInterface, FromDomNodeList
 {
     /**
      * The string value.
@@ -27,17 +28,14 @@ class StringLiteral implements ValueInterface
     /**
      * Builds a StringLiteral object from XML.
      *
-     * @param \DOMNodeList
+     * @param \DOMNodeList $xml
      *   The xml tag containing the string.
      *
      * @return StringLiteral
      *   The StringLiteral object.
      */
-    public static function fromXml()
+    public static function fromXml(\DOMNodeList $xml)
     {
-        /* @var \DOMNodeList $xml */
-        $xml = func_get_arg(0);
-
         $value = '';
         if ($xml->length > 0) {
             $value = $xml->item(0)->textContent;

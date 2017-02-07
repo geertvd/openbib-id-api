@@ -2,45 +2,39 @@
 
 namespace OpenBibIdApi\Value\UserActivities;
 
+use OpenBibIdApi\Value\FromDomElement;
 use OpenBibIdApi\Value\ValueInterface;
 
-class Activity implements ValueInterface
+class Activity implements ValueInterface, FromDomElement
 {
     /**
      * Metadata concerning the library item.
      *
      * @var LibraryItemMetadata
      */
-    private $libraryItemMetadata;
+    protected $libraryItemMetadata;
 
     /**
-     * Creates a new activity object.
-     *
-     * @param LibraryItemMetadata $libraryItemMetadata
-     *   Metadata concerning the library item.
+     * Force the use of static methods to create Activity objects.
      */
-    protected function __construct($libraryItemMetadata)
+    private function __construct()
     {
-        $this->libraryItemMetadata = $libraryItemMetadata;
     }
 
     /**
      * Builds a Activity object from XML.
      *
-     * @param \DOMElement
+     * @param \DOMElement $xml
      *   The xml element containing the activity.
      *
      * @return Activity
      *   An Activity object.
      */
-    public static function fromXml()
+    public static function fromXml(\DOMElement $xml)
     {
-        /* @var \DOMElement $xml */
-        $xml = func_get_arg(0);
-
-        return new static(
-            LibraryItemMetadata::fromXml($xml)
-        );
+        $static = new static();
+        $static->libraryItemMetadata = LibraryItemMetadata::fromXml($xml);
+        return $static;
     }
 
     /**

@@ -3,10 +3,11 @@
 namespace OpenBibIdApi\Value\UserActivities;
 
 use OpenBibIdApi\Value\Boolean\BoolLiteral;
+use OpenBibIdApi\Value\FromDomElement;
 use OpenBibIdApi\Value\StringLiteral\StringLiteral;
 use OpenBibIdApi\Value\ValueInterface;
 
-class Renewable implements ValueInterface
+class Renewable implements ValueInterface, FromDomElement
 {
     /**
      * Whether or not the item is renewable.
@@ -30,45 +31,29 @@ class Renewable implements ValueInterface
     private $cost;
 
     /**
-     * Creates a new Renewable.
-     *
-     * @param BoolLiteral $isRenewable
-     *   Whether or not the item is renewable.
-     * @param StringLiteral $message
-     *   A message concerning the renewable status.
-     * @param StringLiteral $cost
-     *   The cost to renew the item.
+     * Force the use of static methods to create Renewable objects.
      */
-    public function __construct(
-        BoolLiteral $isRenewable,
-        StringLiteral $message,
-        StringLiteral $cost
-    ) {
-        $this->isRenewable = $isRenewable;
-        $this->message = $message;
-        $this->cost = $cost;
+    private function __construct()
+    {
     }
-
 
     /**
      * Builds a Renewable object from XML.
      *
-     * @param \DOMElement
+     * @param \DOMElement $xml
      *   The xml element containing the renewable information.
      *
      * @return Renewable
      *   A Renewable object.
      */
-    public static function fromXml()
+    public static function fromXml(\DOMElement $xml)
     {
-        /* @var \DOMElement $xml */
-        $xml = func_get_arg(0);
+        $static = new static();
+        $static->isRenewable = BoolLiteral::fromXml($xml->getElementsByTagName('renewable'));
+        $static->message = StringLiteral::fromXml($xml->getElementsByTagName('renewableMessage'));
+        $static->cost = StringLiteral::fromXml($xml->getElementsByTagName('renewalCost'));
 
-        return new static(
-            BoolLiteral::fromXml($xml->getElementsByTagName('renewable')),
-            StringLiteral::fromXml($xml->getElementsByTagName('renewableMessage')),
-            StringLiteral::fromXml($xml->getElementsByTagName('renewalCost'))
-        );
+        return $static;
     }
 
     /**

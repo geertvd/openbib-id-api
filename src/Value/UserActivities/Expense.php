@@ -3,11 +3,12 @@
 namespace OpenBibIdApi\Value\UserActivities;
 
 use OpenBibIdApi\Value\DateTime\DateTime;
+use OpenBibIdApi\Value\FromDomElement;
 use OpenBibIdApi\Value\StringLiteral\Path;
 use OpenBibIdApi\Value\StringLiteral\StringLiteral;
 use OpenBibIdApi\Value\ValueInterface;
 
-class Expense implements ValueInterface
+class Expense implements ValueInterface, FromDomElement
 {
     /**
      * Constants describing the type of expense.
@@ -74,70 +75,35 @@ class Expense implements ValueInterface
     private $type;
 
     /**
-     * Creates a new Expense.
-     *
-     * @param StringLiteral $id
-     *   The ID of the expense.
-     * @param DateTime $date
-     *   The date of the expense.
-     * @param StringLiteral $title
-     *   The title of the expense.
-     * @param StringLiteral $description
-     *   The description of the expense.
-     * @param StringLiteral $amount
-     *   The amount to be payed.
-     * @param StringLiteral $docNumber
-     *   The document number of the library item of the expense.
-     * @param Path $docUrl
-     *   The path to the library item of the expense.
-     * @param StringLiteral $type
-     *   The type of expense.
+     * Force the use of static methods to create Expense objects.
      */
-    public function __construct(
-        StringLiteral $id,
-        DateTime $date,
-        StringLiteral $title,
-        StringLiteral $description,
-        StringLiteral $amount,
-        StringLiteral $docNumber,
-        Path $docUrl,
-        StringLiteral $type
-    ) {
-        $this->id = $id;
-        $this->date = $date;
-        $this->title = $title;
-        $this->description = $description;
-        $this->amount = $amount;
-        $this->docNumber = $docNumber;
-        $this->docUrl = $docUrl;
-        $this->type = $type;
+    private function __construct()
+    {
     }
 
 
     /**
      * Builds a Expense object from XML.
      *
-     * @param \DOMElement
+     * @param \DOMElement $xml
      *   The xml element containing the expense.
      *
      * @return Expense
      *   A Expense object
      */
-    public static function fromXml()
+    public static function fromXml(\DOMElement $xml)
     {
-        /* @var \DOMElement $xml */
-        $xml = func_get_arg(0);
+        $static = new static();
+        $static->id = StringLiteral::fromXml($xml->getElementsByTagName('id'));
+        $static->date = DateTime::fromXml($xml->getElementsByTagName('date'));
+        $static->title = StringLiteral::fromXml($xml->getElementsByTagName('title'));
+        $static->description = StringLiteral::fromXml($xml->getElementsByTagName('description'));
+        $static->amount = StringLiteral::fromXml($xml->getElementsByTagName('amount'));
+        $static->docNumber = StringLiteral::fromXml($xml->getElementsByTagName('docNumber'));
+        $static->docUrl = Path::fromXml($xml->getElementsByTagName('docUrl'));
+        $static->type = StringLiteral::fromXml($xml->getElementsByTagName('type'));
 
-        return new static(
-            StringLiteral::fromXml($xml->getElementsByTagName('id')),
-            DateTime::fromXml($xml->getElementsByTagName('date')),
-            StringLiteral::fromXml($xml->getElementsByTagName('title')),
-            StringLiteral::fromXml($xml->getElementsByTagName('description')),
-            StringLiteral::fromXml($xml->getElementsByTagName('amount')),
-            StringLiteral::fromXml($xml->getElementsByTagName('docNumber')),
-            Path::fromXml($xml->getElementsByTagName('docUrl')),
-            StringLiteral::fromXml($xml->getElementsByTagName('type'))
-        );
+        return $static;
     }
 
     /**

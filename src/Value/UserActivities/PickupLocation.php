@@ -2,10 +2,11 @@
 
 namespace OpenBibIdApi\Value\UserActivities;
 
+use OpenBibIdApi\Value\FromDomElement;
 use OpenBibIdApi\Value\StringLiteral\StringLiteral;
 use OpenBibIdApi\Value\ValueInterface;
 
-class PickupLocation implements ValueInterface
+class PickupLocation implements ValueInterface, FromDomElement
 {
     /**
      * The PBS code of the pickup location.
@@ -22,37 +23,27 @@ class PickupLocation implements ValueInterface
     private $text;
 
     /**
-     * PickupLocation constructor.
-     *
-     * @param StringLiteral $id
-     *   The PBS code of the pickup location.
-     * @param StringLiteral $text
-     *   Free text concerning the pickup location.
+     * Force the use of static methods to create PickupLocation objects.
      */
-    public function __construct(StringLiteral $id, StringLiteral $text)
+    private function __construct()
     {
-        $this->id = $id;
-        $this->text = $text;
     }
 
     /**
      * Builds a PickupLocation object from XML.
      *
-     * @param \DOMElement
+     * @param \DOMElement $xml
      *   The xml element containing the pickup location.
      *
      * @return PickupLocation
      *   A PickupLocation object.
      */
-    public static function fromXml()
+    public static function fromXml(\DOMElement $xml)
     {
-        /* @var \DOMElement $xml */
-        $xml = func_get_arg(0);
-
-        return new static(
-            StringLiteral::fromXml($xml->getElementsByTagName('pickupLocation')),
-            StringLiteral::fromXml($xml->getElementsByTagName('pickupLocationText'))
-        );
+        $static = new static();
+        $static->id = StringLiteral::fromXml($xml->getElementsByTagName('pickupLocation'));
+        $static->text = StringLiteral::fromXml($xml->getElementsByTagName('pickupLocationText'));
+        return $static;
     }
 
     /**
