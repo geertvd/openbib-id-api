@@ -28,7 +28,7 @@ class DateTimeRange implements ValueInterface
      * @param DateTime $end
      *   The end date.
      */
-    protected function __construct(DateTime $start, DateTime $end)
+    private function __construct(DateTime $start, DateTime $end)
     {
         $this->start = $start;
         $this->end = $end;
@@ -37,19 +37,19 @@ class DateTimeRange implements ValueInterface
     /**
      * Builds a DateTimeRange object from XML.
      *
-     * @param \DOMNodeList
+     * @param \DOMNodeList $start
      *   The xml tag containing the start date.
-     * @param \DOMNodeList
+     * @param \DOMNodeList $end
      *   The xml tag containing the end date.
      *
      * @return DateTimeRange
      *   The DateTimeRange object.
      */
-    public static function fromXml()
+    public static function fromXml($start, $end)
     {
         return new static(
-            DateTime::fromXml(func_get_arg(0)),
-            DateTime::fromXml(func_get_arg(1))
+            DateTime::fromXml($start),
+            DateTime::fromXml($end)
         );
     }
 

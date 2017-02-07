@@ -58,69 +58,34 @@ class Loan extends Activity
     private $material;
 
     /**
-     * Creates a new Loan object.
-     *
-     * @param LibraryItemMetadata $libraryItemMetadata
-     *   Metadata concerning the library item.
-     * @param Renewable $renewable
-     *   Metadata concerning the loan item's renewable status.
-     * @param StringLiteral $pbsCode
-     *   The PBS code of the library where the item was lent.
-     * @param StringLiteral $itemSequence
-     *   The loan item's sequence number.
-     * @param DateTime $loanDate
-     *   The date when the item was lent out.
-     * @param DateTime $dueDate
-     *   The date when the item is due.
-     * @param DateTime $returnedDate
-     *   The date when the item was returned.
-     * @param StringLiteral $material
-     *   The type of material that was lent.
+     * Force the use of static methods to create Loan objects.
      */
-    protected function __construct(
-        LibraryItemMetadata $libraryItemMetadata,
-        Renewable $renewable,
-        StringLiteral $pbsCode,
-        StringLiteral $itemSequence,
-        DateTime $loanDate,
-        DateTime $dueDate,
-        DateTime $returnedDate,
-        StringLiteral $material
-    ) {
-        parent::__construct($libraryItemMetadata);
-        $this->renewable = $renewable;
-        $this->pbsCode = $pbsCode;
-        $this->itemSequence = $itemSequence;
-        $this->loanDate = $loanDate;
-        $this->dueDate = $dueDate;
-        $this->returnedDate = $returnedDate;
-        $this->material = $material;
+    private function __construct()
+    {
     }
 
     /**
      * Builds a Loan object from XML.
      *
-     * @param \DOMElement
+     * @param \DOMElement $xml
      *   The xml element containing the loan.
      *
      * @return Loan
      *   A loan object.
      */
-    public static function fromXml()
+    public static function fromXml(\DOMElement $xml)
     {
-        /* @var \DOMElement $xml */
-        $xml = func_get_arg(0);
+        $static = new static();
+        $static->libraryItemMetadata = LibraryItemMetadata::fromXml($xml);
+        $static->renewable = Renewable::fromXml($xml);
+        $static->pbsCode = StringLiteral::fromXml($xml->getElementsByTagName('pbsCode'));
+        $static->itemSequence = StringLiteral::fromXml($xml->getElementsByTagName('itemSequence'));
+        $static->loanDate = DateTime::fromXml($xml->getElementsByTagName('loanDate'));
+        $static->dueDate = DateTime::fromXml($xml->getElementsByTagName('dueDate'));
+        $static->returnedDate = DateTime::fromXml($xml->getElementsByTagName('returnedDate'));
+        $static->material = StringLiteral::fromXml($xml->getElementsByTagName('material'));
 
-        return new static(
-            LibraryItemMetadata::fromXml($xml),
-            Renewable::fromXml($xml),
-            StringLiteral::fromXml($xml->getElementsByTagName('pbsCode')),
-            StringLiteral::fromXml($xml->getElementsByTagName('itemSequence')),
-            DateTime::fromXml($xml->getElementsByTagName('loanDate')),
-            DateTime::fromXml($xml->getElementsByTagName('dueDate')),
-            DateTime::fromXml($xml->getElementsByTagName('returnedDate')),
-            StringLiteral::fromXml($xml->getElementsByTagName('material'))
-        );
+        return $static;
     }
 
     /**

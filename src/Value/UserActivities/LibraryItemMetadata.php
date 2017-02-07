@@ -2,11 +2,12 @@
 
 namespace OpenBibIdApi\Value\UserActivities;
 
+use OpenBibIdApi\Value\FromDomElement;
 use OpenBibIdApi\Value\StringLiteral\Path;
 use OpenBibIdApi\Value\StringLiteral\StringLiteral;
 use OpenBibIdApi\Value\ValueInterface;
 
-class LibraryItemMetadata implements ValueInterface
+class LibraryItemMetadata implements ValueInterface, FromDomElement
 {
     /**
      * The title of the library item.
@@ -58,64 +59,33 @@ class LibraryItemMetadata implements ValueInterface
     private $docNumber;
 
     /**
-     * LibraryItemMetadata constructor.
-     *
-     * @param StringLiteral $title
-     *   The title of the library item.
-     * @param StringLiteral $author
-     *   The author of the library item.
-     * @param StringLiteral $year
-     *   The year the library item was published.
-     * @param StringLiteral $imprint
-     *   The library item's imprint.
-     * @param Path $url
-     *   The path to the library item's detail page.
-     * @param StringLiteral $isbnIssn
-     *   The ISBN or ISSN number of the library item.
-     * @param StringLiteral $docNumber
-     *   The document number of the library item.
+     * Force the use of static methods to create LibraryItemMetadata objects.
      */
-    public function __construct(
-        StringLiteral $title,
-        StringLiteral $author,
-        StringLiteral $year,
-        StringLiteral $imprint,
-        Path $url,
-        StringLiteral $isbnIssn,
-        StringLiteral $docNumber
-    ) {
-        $this->title = $title;
-        $this->author = $author;
-        $this->year = $year;
-        $this->imprint = $imprint;
-        $this->url = $url;
-        $this->isbnIssn = $isbnIssn;
-        $this->docNumber = $docNumber;
+    private function __construct()
+    {
     }
 
     /**
      * Builds a LibraryItemMetadata object from XML.
      *
-     * @param \DOMElement
+     * @param \DOMElement $xml
      *   The xml element containing the library item info.
      *
      * @return LibraryItemMetadata
      *   A LibraryItemMetadata object.
      */
-    public static function fromXml()
+    public static function fromXml(\DOMElement $xml)
     {
-        /* @var \DOMElement $xml */
-        $xml = func_get_arg(0);
+        $static = new static();
+        $static->title = StringLiteral::fromXml($xml->getElementsByTagName('title'));
+        $static->author = StringLiteral::fromXml($xml->getElementsByTagName('author'));
+        $static->year = StringLiteral::fromXml($xml->getElementsByTagName('year'));
+        $static->imprint = StringLiteral::fromXml($xml->getElementsByTagName('imprint'));
+        $static->url = Path::fromXml($xml->getElementsByTagName('docUrl'));
+        $static->isbnIssn = StringLiteral::fromXml($xml->getElementsByTagName('isbn_issn'));
+        $static->docNumber = StringLiteral::fromXml($xml->getElementsByTagName('docNumber'));
 
-        return new static(
-            StringLiteral::fromXml($xml->getElementsByTagName('title')),
-            StringLiteral::fromXml($xml->getElementsByTagName('author')),
-            StringLiteral::fromXml($xml->getElementsByTagName('year')),
-            StringLiteral::fromXml($xml->getElementsByTagName('imprint')),
-            Path::fromXml($xml->getElementsByTagName('docUrl')),
-            StringLiteral::fromXml($xml->getElementsByTagName('isbn_issn')),
-            StringLiteral::fromXml($xml->getElementsByTagName('docNumber'))
-        );
+        return $static;
     }
 
     /**

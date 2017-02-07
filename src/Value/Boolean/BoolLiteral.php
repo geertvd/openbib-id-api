@@ -2,16 +2,17 @@
 
 namespace OpenBibIdApi\Value\Boolean;
 
+use OpenBibIdApi\Value\FromDomNodeList;
 use OpenBibIdApi\Value\ValueInterface;
 
-class BoolLiteral implements ValueInterface
+class BoolLiteral implements ValueInterface, FromDomNodeList
 {
     /**
      * The boolean value.
      *
      * @var bool
      */
-    protected $value;
+    private $value;
 
     /**
      * Creates a new BoolLiteral.
@@ -19,7 +20,7 @@ class BoolLiteral implements ValueInterface
      * @param bool $value
      *   The boolean value.
      */
-    protected function __construct($value)
+    private function __construct($value)
     {
         $this->value = $value;
     }
@@ -27,17 +28,14 @@ class BoolLiteral implements ValueInterface
     /**
      * Builds a BoolLiteral object from XML.
      *
-     * @param \DOMNodeList
+     * @param \DOMNodeList $xml
      *   The xml tag containing the boolean.
      *
      * @return BoolLiteral
      *   A BoolLiteral object.
      */
-    public static function fromXml()
+    public static function fromXml(\DOMNodeList $xml)
     {
-        /* @var \DOMNodeList $xml */
-        $xml = func_get_arg(0);
-
         $value = false;
         if ($xml->length > 0) {
             $value = $xml->item(0)->textContent === 'true';

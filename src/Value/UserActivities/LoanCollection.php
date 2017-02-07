@@ -9,17 +9,14 @@ class LoanCollection extends ActivityCollection implements ValueInterface
     /**
      * Builds a LoanCollection object from XML.
      *
-     * @param \DOMNodeList
+     * @param \DOMNodeList $xml
      *   The list of xml tags representing the loans.
      *
      * @return LoanCollection
      *   A LoanCollection object.
      */
-    public static function fromXml()
+    public static function fromXml(\DOMNodeList $xml)
     {
-        /* @var \DOMNodeList $xml */
-        $xml = func_get_arg(0);
-
         $items = array();
         foreach ($xml as $xmlTag) {
             $items[] = Loan::fromXml($xmlTag);
