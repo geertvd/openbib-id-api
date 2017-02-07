@@ -84,14 +84,30 @@ class UserActivities implements ValueInterface, FromDomDocument
     public static function fromXml(\DOMDocument $xml)
     {
         $static = new static();
-        $static->loans = LoanCollection::fromXml($xml->getElementsByTagName('loan'));
-        $static->loanHistory = LoanCollection::fromXml($xml->getElementsByTagName('loanHistory'));
-        $static->holds = HoldCollection::fromXml($xml->getElementsByTagName('hold'));
-        $static->expenses = ExpenseCollection::fromXml($xml->getElementsByTagName('fine'));
-        $static->totalFine = StringLiteral::fromXml($xml->getElementsByTagName('TotalFine'));
-        $static->totalExpense = StringLiteral::fromXml($xml->getElementsByTagName('totalExpense'));
-        $static->message = StringLiteral::fromXml($xml->getElementsByTagName('message'));
-        $static->loanHistoryConfigurable = BoolLiteral::fromXml($xml->getElementsByTagName('loanHistoryConfigurable'));
+
+        $loans = $xml->getElementsByTagName('loan');
+        $static->loans = LoanCollection::fromXml($loans);
+
+        $loanHistory = $xml->getElementsByTagName('loanHistory');
+        $static->loanHistory = LoanCollection::fromXml($loanHistory);
+
+        $holds = $xml->getElementsByTagName('hold');
+        $static->holds = HoldCollection::fromXml($holds);
+
+        $expenses = $xml->getElementsByTagName('fine');
+        $static->expenses = ExpenseCollection::fromXml($expenses);
+
+        $totalFine = $xml->getElementsByTagName('TotalFine');
+        $static->totalFine = StringLiteral::fromXml($totalFine);
+
+        $totalExpense = $xml->getElementsByTagName('totalExpense');
+        $static->totalExpense = StringLiteral::fromXml($totalExpense);
+
+        $message = $xml->getElementsByTagName('message');
+        $static->message = StringLiteral::fromXml($message);
+
+        $loanHistoryConfigurable = $xml->getElementsByTagName('loanHistoryConfigurable');
+        $static->loanHistoryConfigurable = BoolLiteral::fromXml($loanHistoryConfigurable);
 
         return $static;
     }

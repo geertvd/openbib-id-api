@@ -78,12 +78,24 @@ class Loan extends Activity
         $static = new static();
         $static->libraryItemMetadata = LibraryItemMetadata::fromXml($xml);
         $static->renewable = Renewable::fromXml($xml);
-        $static->pbsCode = StringLiteral::fromXml($xml->getElementsByTagName('pbsCode'));
-        $static->itemSequence = StringLiteral::fromXml($xml->getElementsByTagName('itemSequence'));
-        $static->loanDate = DateTime::fromXml($xml->getElementsByTagName('loanDate'));
-        $static->dueDate = DateTime::fromXml($xml->getElementsByTagName('dueDate'));
-        $static->returnedDate = DateTime::fromXml($xml->getElementsByTagName('returnedDate'));
-        $static->material = StringLiteral::fromXml($xml->getElementsByTagName('material'));
+
+        $pbsCode = $xml->getElementsByTagName('pbsCode');
+        $static->pbsCode = StringLiteral::fromXml($pbsCode);
+
+        $itemSequence = $xml->getElementsByTagName('itemSequence');
+        $static->itemSequence = StringLiteral::fromXml($itemSequence);
+
+        $loanDate = $xml->getElementsByTagName('loanDate');
+        $static->loanDate = DateTime::fromXml($loanDate);
+
+        $dueDate = $xml->getElementsByTagName('dueDate');
+        $static->dueDate = DateTime::fromXml($dueDate);
+
+        $returnedDate = $xml->getElementsByTagName('returnedDate');
+        $static->returnedDate = DateTime::fromXml($returnedDate);
+
+        $material = $xml->getElementsByTagName('material');
+        $static->material = StringLiteral::fromXml($material);
 
         return $static;
     }

@@ -41,8 +41,13 @@ class PickupLocation implements ValueInterface, FromDomElement
     public static function fromXml(\DOMElement $xml)
     {
         $static = new static();
-        $static->locationId = StringLiteral::fromXml($xml->getElementsByTagName('pickupLocation'));
-        $static->text = StringLiteral::fromXml($xml->getElementsByTagName('pickupLocationText'));
+
+        $locationId = $xml->getElementsByTagName('pickupLocation');
+        $static->locationId = StringLiteral::fromXml($locationId);
+
+        $text = $xml->getElementsByTagName('pickupLocationText');
+        $static->text = StringLiteral::fromXml($text);
+
         return $static;
     }
 

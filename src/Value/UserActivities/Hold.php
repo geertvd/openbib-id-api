@@ -97,21 +97,34 @@ class Hold extends Activity
     {
         $static = new static();
         $static->libraryItemMetadata = LibraryItemMetadata::fromXml($xml);
-        $static->requestNumber = StringLiteral::fromXml($xml->getElementsByTagName('requestNumber'));
-        $static->sequence = StringLiteral::fromXml($xml->getElementsByTagName('sequence'));
-        $static->queuePosition = StringLiteral::fromXml($xml->getElementsByTagName('queuePosition'));
-        $static->itemSequence = StringLiteral::fromXml($xml->getElementsByTagName('itemSequence'));
-        $static->requestDateRange = DateTimeRange::fromXml(
-            $xml->getElementsByTagName('requestDate'),
-            $xml->getElementsByTagName('endRequestDate')
-        );
-        $static->holdDateRange = DateTimeRange::fromXml(
-            $xml->getElementsByTagName('holdDate'),
-            $xml->getElementsByTagName('endHoldDate')
-        );
-        $static->status = StringLiteral::fromXml($xml->getElementsByTagName('status'));
         $static->pickupLocation = PickupLocation::fromXml($xml);
-        $static->cancelable = BoolLiteral::fromXml($xml->getElementsByTagName('cancelable'));
+
+        $requestNumber = $xml->getElementsByTagName('requestNumber');
+        $static->requestNumber = StringLiteral::fromXml($requestNumber);
+
+        $sequence = $xml->getElementsByTagName('sequence');
+        $static->sequence = StringLiteral::fromXml($sequence);
+
+        $queuePosition = $xml->getElementsByTagName('queuePosition');
+        $static->queuePosition = StringLiteral::fromXml($queuePosition);
+
+        $itemSequence = $xml->getElementsByTagName('itemSequence');
+        $static->itemSequence = StringLiteral::fromXml($itemSequence);
+
+        $requestStartDate = $xml->getElementsByTagName('requestDate');
+        $requestEndDate = $xml->getElementsByTagName('endRequestDate');
+        $static->requestDateRange = DateTimeRange::fromXml($requestStartDate, $requestEndDate);
+
+        $holdStartDate = $xml->getElementsByTagName('holdDate');
+        $holdEndDate = $xml->getElementsByTagName('endHoldDate');
+        $static->holdDateRange = DateTimeRange::fromXml($holdStartDate, $holdEndDate);
+
+        $status = $xml->getElementsByTagName('status');
+        $static->status = StringLiteral::fromXml($status);
+
+        $cancelable = $xml->getElementsByTagName('cancelable');
+        $static->cancelable = BoolLiteral::fromXml($cancelable);
+
         return $static;
     }
 
