@@ -15,5 +15,4 @@ class Path extends StringLiteral
     {
         return parse_url($this->value);
     }
-
 }

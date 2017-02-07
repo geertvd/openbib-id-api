@@ -47,5 +47,4 @@ class Activity implements ValueInterface, FromDomElement
     {
         return $this->libraryItemMetadata;
     }
-
 }

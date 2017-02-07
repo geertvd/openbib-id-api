@@ -164,5 +164,4 @@ class LibraryItemMetadata implements ValueInterface, FromDomElement
     {
         return $this->docNumber;
     }
-
 }

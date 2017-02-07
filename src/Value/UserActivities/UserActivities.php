@@ -181,7 +181,6 @@ class UserActivities implements ValueInterface, FromDomDocument
      */
     public function isLoanHistoryConfigurable()
     {
-        return $this->loanHistoryConfigurable->getValue();
+        return $this->loanHistoryConfigurable->isTrue();
     }
-
 }

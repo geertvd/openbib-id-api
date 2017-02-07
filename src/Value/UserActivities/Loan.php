@@ -164,5 +164,4 @@ class Loan extends Activity
     {
         return $this->renewable;
     }
-
 }
