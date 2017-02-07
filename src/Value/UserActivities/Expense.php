@@ -23,7 +23,7 @@ class Expense implements ValueInterface, FromDomElement
      *
      * @var StringLiteral
      */
-    private $id;
+    private $expenseId;
 
     /**
      * The date of the expense.
@@ -81,7 +81,6 @@ class Expense implements ValueInterface, FromDomElement
     {
     }
 
-
     /**
      * Builds a Expense object from XML.
      *
@@ -94,14 +93,30 @@ class Expense implements ValueInterface, FromDomElement
     public static function fromXml(\DOMElement $xml)
     {
         $static = new static();
-        $static->id = StringLiteral::fromXml($xml->getElementsByTagName('id'));
-        $static->date = DateTime::fromXml($xml->getElementsByTagName('date'));
-        $static->title = StringLiteral::fromXml($xml->getElementsByTagName('title'));
-        $static->description = StringLiteral::fromXml($xml->getElementsByTagName('description'));
-        $static->amount = StringLiteral::fromXml($xml->getElementsByTagName('amount'));
-        $static->docNumber = StringLiteral::fromXml($xml->getElementsByTagName('docNumber'));
-        $static->docUrl = Path::fromXml($xml->getElementsByTagName('docUrl'));
-        $static->type = StringLiteral::fromXml($xml->getElementsByTagName('type'));
+
+        $expenseId = $xml->getElementsByTagName('id');
+        $static->expenseId = StringLiteral::fromXml($expenseId);
+
+        $date = $xml->getElementsByTagName('date');
+        $static->date = DateTime::fromXml($date);
+
+        $title = $xml->getElementsByTagName('title');
+        $static->title = StringLiteral::fromXml($title);
+
+        $description = $xml->getElementsByTagName('description');
+        $static->description = StringLiteral::fromXml($description);
+
+        $amount = $xml->getElementsByTagName('amount');
+        $static->amount = StringLiteral::fromXml($amount);
+
+        $docNumber = $xml->getElementsByTagName('docNumber');
+        $static->docNumber = StringLiteral::fromXml($docNumber);
+
+        $docUrl = $xml->getElementsByTagName('docUrl');
+        $static->docUrl = Path::fromXml($docUrl);
+
+        $type = $xml->getElementsByTagName('type');
+        $static->type = StringLiteral::fromXml($type);
 
         return $static;
     }
@@ -114,7 +129,7 @@ class Expense implements ValueInterface, FromDomElement
      */
     public function getId()
     {
-        return $this->id;
+        return $this->expenseId;
     }
 
     /**
@@ -193,5 +208,4 @@ class Expense implements ValueInterface, FromDomElement
     {
         return $this->type;
     }
-
 }

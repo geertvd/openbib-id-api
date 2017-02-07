@@ -49,7 +49,7 @@ class BoolLiteral implements ValueInterface, FromDomNodeList
      * @return bool
      *   The boolean value.
      */
-    public function getValue()
+    public function isTrue()
     {
         return $this->value;
     }
