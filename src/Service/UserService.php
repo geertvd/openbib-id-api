@@ -2,6 +2,7 @@
 
 namespace OpenBibIdApi\Service;
 
+use OpenBibIdApi\Value\UserActivities\Hold;
 use OpenBibIdApi\Value\UserActivities\UserActivities;
 
 class UserService extends Service implements UserServiceInterface
@@ -121,16 +122,16 @@ class UserService extends Service implements UserServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function cancelReservation($accountId, $docNumber, $itemSequence, $recNumber, $sequence)
+    public function cancelReservation($accountId, Hold $hold)
     {
         return $this->consumer->post(
             '/libraryaccounts/:id/hold/cancel',
             array(':id' => $accountId),
             array(
-                'docNumber' => $docNumber,
-                'itemSequence' => $itemSequence,
-                'recNumber' => $recNumber,
-                'sequence' => $sequence,
+                'docNumber' => (string) $hold->getLibraryItemMetadata()->getDocNumber(),
+                'itemSequence' => (string) $hold->getSequence(),
+                'recNumber' => (string) $hold->getRequestNumber(),
+                'sequence' => (string) $hold->getSequence(),
             )
         );
     }
