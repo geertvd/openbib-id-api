@@ -2,11 +2,11 @@
 
 namespace OpenBibIdApi\Value\Structure;
 
-use OpenBibIdApi\Value\FromDomNodeList;
+use OpenBibIdApi\Value\FromDomNodeListInterface;
 use OpenBibIdApi\Value\StringLiteral\StringLiteral;
 use OpenBibIdApi\Value\ValueInterface;
 
-class Collection implements \IteratorAggregate, ValueInterface, FromDomNodeList
+class Collection implements \IteratorAggregate, ValueInterface, FromDomNodeListInterface
 {
     /**
      * An array of objects implementing ValueInterface.

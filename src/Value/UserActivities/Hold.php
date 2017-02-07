@@ -97,17 +97,30 @@ class Hold extends Activity
     {
         $static = new static();
         $static->libraryItemMetadata = LibraryItemMetadata::fromXml($xml);
-        $static->requestNumber = StringLiteral::fromXml($xml->getElementsByTagName('requestNumber'));
-        $static->sequence = StringLiteral::fromXml($xml->getElementsByTagName('sequence'));
-        $static->queuePosition = StringLiteral::fromXml($xml->getElementsByTagName('queuePosition'));
-        $static->itemSequence = StringLiteral::fromXml($xml->getElementsByTagName('itemSequence'));
-        $static->requestDateRange = DateTimeRange::fromXml($xml->getElementsByTagName('requestDate'),
-            $xml->getElementsByTagName('endRequestDate'));
-        $static->holdDateRange = DateTimeRange::fromXml($xml->getElementsByTagName('holdDate'),
-            $xml->getElementsByTagName('endHoldDate'));
-        $static->status = StringLiteral::fromXml($xml->getElementsByTagName('status'));
         $static->pickupLocation = PickupLocation::fromXml($xml);
-        $static->cancelable = BoolLiteral::fromXml($xml->getElementsByTagName('cancelable'));
+
+        $requestStartDate = $xml->getElementsByTagName('requestDate');
+        $requestEndDate = $xml->getElementsByTagName('endRequestDate');
+        $static->requestDateRange = DateTimeRange::fromXml($requestStartDate, $requestEndDate);
+
+        $holdStartDate = $xml->getElementsByTagName('holdDate');
+        $holdEndDate = $xml->getElementsByTagName('endHoldDate');
+        $static->holdDateRange = DateTimeRange::fromXml($holdStartDate, $holdEndDate);
+
+        $cancelable = $xml->getElementsByTagName('cancelable');
+        $static->cancelable = BoolLiteral::fromXml($cancelable);
+
+        $stringLiterals = array(
+            'requestNumber' => $xml->getElementsByTagName('requestNumber'),
+            'sequence' => $xml->getElementsByTagName('sequence'),
+            'queuePosition' => $xml->getElementsByTagName('queuePosition'),
+            'itemSequence' => $xml->getElementsByTagName('itemSequence'),
+            'status' => $xml->getElementsByTagName('status'),
+        );
+        foreach ($stringLiterals as $propertyName => $xmlTag) {
+            $static->$propertyName = StringLiteral::fromXml($xmlTag);
+        }
+
         return $static;
     }
 
@@ -207,7 +220,6 @@ class Hold extends Activity
      */
     public function isCancelable()
     {
-        return $this->cancelable->getValue();
+        return $this->cancelable->isTrue();
     }
-
 }

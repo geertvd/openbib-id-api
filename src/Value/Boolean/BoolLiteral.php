@@ -2,10 +2,10 @@
 
 namespace OpenBibIdApi\Value\Boolean;
 
-use OpenBibIdApi\Value\FromDomNodeList;
+use OpenBibIdApi\Value\FromDomNodeListInterface;
 use OpenBibIdApi\Value\ValueInterface;
 
-class BoolLiteral implements ValueInterface, FromDomNodeList
+class BoolLiteral implements ValueInterface, FromDomNodeListInterface
 {
     /**
      * The boolean value.
@@ -49,7 +49,7 @@ class BoolLiteral implements ValueInterface, FromDomNodeList
      * @return bool
      *   The boolean value.
      */
-    public function getValue()
+    public function isTrue()
     {
         return $this->value;
     }

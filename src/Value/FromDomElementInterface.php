@@ -1,7 +1,7 @@
 <?php
 namespace OpenBibIdApi\Value;
 
-interface FromDomElement
+interface FromDomElementInterface
 {
     /**
      * Builds a ValueInterface from XML.

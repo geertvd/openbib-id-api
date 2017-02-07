@@ -2,10 +2,10 @@
 
 namespace OpenBibIdApi\Value\StringLiteral;
 
-use OpenBibIdApi\Value\FromDomNodeList;
+use OpenBibIdApi\Value\FromDomNodeListInterface;
 use OpenBibIdApi\Value\ValueInterface;
 
-class StringLiteral implements ValueInterface, FromDomNodeList
+class StringLiteral implements ValueInterface, FromDomNodeListInterface
 {
     /**
      * The string value.

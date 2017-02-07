@@ -3,11 +3,11 @@
 namespace OpenBibIdApi\Value\UserActivities;
 
 use OpenBibIdApi\Value\Boolean\BoolLiteral;
-use OpenBibIdApi\Value\FromDomElement;
+use OpenBibIdApi\Value\FromDomElementInterface;
 use OpenBibIdApi\Value\StringLiteral\StringLiteral;
 use OpenBibIdApi\Value\ValueInterface;
 
-class Renewable implements ValueInterface, FromDomElement
+class Renewable implements ValueInterface, FromDomElementInterface
 {
     /**
      * Whether or not the item is renewable.
@@ -49,9 +49,13 @@ class Renewable implements ValueInterface, FromDomElement
     public static function fromXml(\DOMElement $xml)
     {
         $static = new static();
-        $static->isRenewable = BoolLiteral::fromXml($xml->getElementsByTagName('renewable'));
-        $static->message = StringLiteral::fromXml($xml->getElementsByTagName('renewableMessage'));
-        $static->cost = StringLiteral::fromXml($xml->getElementsByTagName('renewalCost'));
+
+        $isRenewable = $xml->getElementsByTagName('renewable');
+        $static->isRenewable = BoolLiteral::fromXml($isRenewable);
+        $message = $xml->getElementsByTagName('renewableMessage');
+        $static->message = StringLiteral::fromXml($message);
+        $cost = $xml->getElementsByTagName('renewalCost');
+        $static->cost = StringLiteral::fromXml($cost);
 
         return $static;
     }
@@ -64,7 +68,7 @@ class Renewable implements ValueInterface, FromDomElement
      */
     public function isRenewable()
     {
-        return $this->isRenewable->getValue();
+        return $this->isRenewable->isTrue();
     }
 
     /**
@@ -88,5 +92,4 @@ class Renewable implements ValueInterface, FromDomElement
     {
         return $this->cost;
     }
-
 }

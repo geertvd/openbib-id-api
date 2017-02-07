@@ -2,18 +2,18 @@
 
 namespace OpenBibIdApi\Value\UserActivities;
 
-use OpenBibIdApi\Value\FromDomElement;
+use OpenBibIdApi\Value\FromDomElementInterface;
 use OpenBibIdApi\Value\StringLiteral\StringLiteral;
 use OpenBibIdApi\Value\ValueInterface;
 
-class PickupLocation implements ValueInterface, FromDomElement
+class PickupLocation implements ValueInterface, FromDomElementInterface
 {
     /**
      * The PBS code of the pickup location.
      *
      * @var StringLiteral
      */
-    private $id;
+    private $locationId;
 
     /**
      * Free text concerning the pickup location.
@@ -41,8 +41,13 @@ class PickupLocation implements ValueInterface, FromDomElement
     public static function fromXml(\DOMElement $xml)
     {
         $static = new static();
-        $static->id = StringLiteral::fromXml($xml->getElementsByTagName('pickupLocation'));
-        $static->text = StringLiteral::fromXml($xml->getElementsByTagName('pickupLocationText'));
+
+        $locationId = $xml->getElementsByTagName('pickupLocation');
+        $static->locationId = StringLiteral::fromXml($locationId);
+
+        $text = $xml->getElementsByTagName('pickupLocationText');
+        $static->text = StringLiteral::fromXml($text);
+
         return $static;
     }
 
@@ -54,7 +59,7 @@ class PickupLocation implements ValueInterface, FromDomElement
      */
     public function getId()
     {
-        return $this->id;
+        return $this->locationId;
     }
 
     /**
@@ -67,5 +72,4 @@ class PickupLocation implements ValueInterface, FromDomElement
     {
         return $this->text;
     }
-
 }

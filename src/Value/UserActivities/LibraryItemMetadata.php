@@ -2,12 +2,12 @@
 
 namespace OpenBibIdApi\Value\UserActivities;
 
-use OpenBibIdApi\Value\FromDomElement;
+use OpenBibIdApi\Value\FromDomElementInterface;
 use OpenBibIdApi\Value\StringLiteral\Path;
 use OpenBibIdApi\Value\StringLiteral\StringLiteral;
 use OpenBibIdApi\Value\ValueInterface;
 
-class LibraryItemMetadata implements ValueInterface, FromDomElement
+class LibraryItemMetadata implements ValueInterface, FromDomElementInterface
 {
     /**
      * The title of the library item.
@@ -77,13 +77,27 @@ class LibraryItemMetadata implements ValueInterface, FromDomElement
     public static function fromXml(\DOMElement $xml)
     {
         $static = new static();
-        $static->title = StringLiteral::fromXml($xml->getElementsByTagName('title'));
-        $static->author = StringLiteral::fromXml($xml->getElementsByTagName('author'));
-        $static->year = StringLiteral::fromXml($xml->getElementsByTagName('year'));
-        $static->imprint = StringLiteral::fromXml($xml->getElementsByTagName('imprint'));
-        $static->url = Path::fromXml($xml->getElementsByTagName('docUrl'));
-        $static->isbnIssn = StringLiteral::fromXml($xml->getElementsByTagName('isbn_issn'));
-        $static->docNumber = StringLiteral::fromXml($xml->getElementsByTagName('docNumber'));
+
+        $title = $xml->getElementsByTagName('title');
+        $static->title = StringLiteral::fromXml($title);
+
+        $author = $xml->getElementsByTagName('author');
+        $static->author = StringLiteral::fromXml($author);
+
+        $year = $xml->getElementsByTagName('year');
+        $static->year = StringLiteral::fromXml($year);
+
+        $imprint = $xml->getElementsByTagName('imprint');
+        $static->imprint = StringLiteral::fromXml($imprint);
+
+        $url = $xml->getElementsByTagName('docUrl');
+        $static->url = Path::fromXml($url);
+
+        $isbnIssn = $xml->getElementsByTagName('isbn_issn');
+        $static->isbnIssn = StringLiteral::fromXml($isbnIssn);
+
+        $docNumber = $xml->getElementsByTagName('docNumber');
+        $static->docNumber = StringLiteral::fromXml($docNumber);
 
         return $static;
     }
@@ -164,5 +178,4 @@ class LibraryItemMetadata implements ValueInterface, FromDomElement
     {
         return $this->docNumber;
     }
-
 }
