@@ -106,8 +106,8 @@ class UserActivities implements ValueInterface, FromDomDocument
         $message = $xml->getElementsByTagName('message');
         $static->message = StringLiteral::fromXml($message);
 
-        $loanHistoryConfigurable = $xml->getElementsByTagName('loanHistoryConfigurable');
-        $static->loanHistoryConfigurable = BoolLiteral::fromXml($loanHistoryConfigurable);
+        $loanHistoryConfig = $xml->getElementsByTagName('loanHistoryConfigurable');
+        $static->loanHistoryConfigurable = BoolLiteral::fromXml($loanHistoryConfig);
 
         return $static;
     }
