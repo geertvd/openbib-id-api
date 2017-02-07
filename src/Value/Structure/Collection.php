@@ -41,11 +41,10 @@ class Collection implements \IteratorAggregate, ValueInterface
 
         $items = array();
         foreach ($xml as $xmlTag) {
-            $items[] = StringLiteral::fromXml($xmlTag);
+            $items[] = StringLiteral::create($xmlTag->textContent);
         }
         return new static($items);
     }
-
 
     /**
      * {@inheritdoc}
@@ -55,4 +54,15 @@ class Collection implements \IteratorAggregate, ValueInterface
         return new \ArrayIterator($this->items);
     }
 
+    /**
+     * Gets the first item from the collection.
+     *
+     * @return StringLiteral|false
+     *   The first item from the collection, false if the collection is empty.
+     */
+    public function first()
+    {
+        $this->getIterator()->rewind();
+        return $this->getIterator()->count() ? $this->getIterator()->current() : false;
+    }
 }

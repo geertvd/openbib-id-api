@@ -46,6 +46,20 @@ class StringLiteral implements ValueInterface
     }
 
     /**
+     * Builds a StringLiteral object from a string.
+     *
+     * @param string $value
+     *   The text value.
+     *
+     * @return StringLiteral
+     *   The StringLiteral object.
+     */
+    public static function create($value)
+    {
+        return new static($value);
+    }
+
+    /**
      * Returns a string representation of the StringLiteral.
      *
      * @return string
