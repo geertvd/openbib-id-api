@@ -62,11 +62,15 @@ class UserService extends Service implements UserServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function getUserActivities($accountId)
+    public function getUserActivities($accountId, $triggerServiceRefresh = false, $includeLoanHistory = true)
     {
         return $this->consumer->get(
             '/libraryaccounts/:id/activities',
-            array(':id' => $accountId)
+            array(':id' => $accountId),
+            array(
+                'triggerServiceRefresh' => $triggerServiceRefresh,
+                'includeLoanHistory' => $includeLoanHistory,
+            )
         );
     }
 

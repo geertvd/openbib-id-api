@@ -207,6 +207,9 @@ class BibConsumer implements BibConsumerInterface
         $queryReplacements = $this->getParameterReplacements($options['queryParams'], $token);
         $queryParams = array_merge($options['queryParams'], $queryReplacements);
 
+        // Process query parameters.
+        $queryParams = $this->processQueryParameters($queryParams);
+
         // Set the request uri.
         $client->setUri($this->credentials->getEnvironment()->getBaseUrl() . $url);
 
@@ -402,5 +405,24 @@ class BibConsumer implements BibConsumerInterface
             . $_SERVER['HTTP_HOST']
             . '/'
             . ltrim($uri, '/');
+    }
+
+    /**
+     * Processes an array of query parameters to a readable format.
+     *
+     * @param array $queryParams
+     *   The parameters to be processes.
+     *
+     * @return array
+     *   The processed array of query parameters.
+     */
+    protected function processQueryParameters($queryParams)
+    {
+        foreach ($queryParams as $name => $value) {
+            if (is_bool($value)) {
+                $queryParams[$name] = $value ? 'true' : 'false';
+            }
+        }
+        return $queryParams;
     }
 }
