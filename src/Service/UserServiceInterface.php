@@ -5,7 +5,6 @@ namespace OpenBibIdApi\Service;
 use OpenBibIdApi\Value\UserActivities\Hold;
 use OpenBibIdApi\Value\UserActivities\Loan;
 use OpenBibIdApi\Value\UserActivities\UserActivities;
-use OpenBibIdApi\Value\UserActivities\UserActivitiesInterface;
 
 interface UserServiceInterface extends ServiceInterface
 {
@@ -63,7 +62,7 @@ interface UserServiceInterface extends ServiceInterface
      * @param string $accountId
      *   The id of a library account.
      *
-     * @return UserActivitiesInterface
+     * @return UserActivities
      *   An object containing information about user activities.
      */
     public function getUserActivities($accountId);
