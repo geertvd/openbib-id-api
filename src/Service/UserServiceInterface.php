@@ -57,12 +57,16 @@ interface UserServiceInterface extends ServiceInterface
      *
      * @param string $accountId
      *   The id of a library account.
+     * @param bool $triggerServiceRefresh
+     *   Whether membership should be synced before fetching the activities.
+     * @param bool $includeLoanHistory
+     *   Whether the loan history should by included in the user activities.
      *
      * @return \DOMDocument|null
      *   A \DOMDocument containing the XML from the response, null if HTTP
      *   status code 204 (No content) was returned.
      */
-    public function getUserActivities($accountId);
+    public function getUserActivities($accountId, $triggerServiceRefresh = false, $includeLoanHistory = true);
 
     /**
      * Get the loan history of a library account of the currently logged in
