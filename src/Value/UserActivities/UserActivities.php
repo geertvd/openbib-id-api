@@ -4,6 +4,7 @@ namespace OpenBibIdApi\Value\UserActivities;
 
 use OpenBibIdApi\Value\Boolean\BoolLiteral;
 use OpenBibIdApi\Value\FromDomDocumentInterface;
+use OpenBibIdApi\Value\Number\FloatLiteral;
 use OpenBibIdApi\Value\StringLiteral\StringLiteral;
 use OpenBibIdApi\Value\ValueInterface;
 
@@ -98,10 +99,10 @@ class UserActivities implements ValueInterface, FromDomDocumentInterface
         $static->expenses = ExpenseCollection::fromXml($expenses);
 
         $totalFine = $xml->getElementsByTagName('totalFine');
-        $static->totalFine = StringLiteral::fromXml($totalFine);
+        $static->totalFine = FloatLiteral::fromXml($totalFine);
 
         $totalCost = $xml->getElementsByTagName('totalCost');
-        $static->totalCost = StringLiteral::fromXml($totalCost);
+        $static->totalCost = FloatLiteral::fromXml($totalCost);
 
         $message = $xml->getElementsByTagName('message');
         $static->message = StringLiteral::fromXml($message);
