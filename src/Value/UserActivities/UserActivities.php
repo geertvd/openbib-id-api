@@ -45,11 +45,11 @@ class UserActivities implements ValueInterface, FromDomDocumentInterface
     private $totalFine;
 
     /**
-     * The total of all open expenses.
+     * The total of all open costs.
      *
      * @var StringLiteral
      */
-    private $totalExpense;
+    private $totalCost;
 
     /**
      * A message to be shown to the user.
@@ -97,11 +97,11 @@ class UserActivities implements ValueInterface, FromDomDocumentInterface
         $expenses = $xml->getElementsByTagName('fine');
         $static->expenses = ExpenseCollection::fromXml($expenses);
 
-        $totalFine = $xml->getElementsByTagName('TotalFine');
+        $totalFine = $xml->getElementsByTagName('totalFine');
         $static->totalFine = StringLiteral::fromXml($totalFine);
 
-        $totalExpense = $xml->getElementsByTagName('totalExpense');
-        $static->totalExpense = StringLiteral::fromXml($totalExpense);
+        $totalCost = $xml->getElementsByTagName('totalCost');
+        $static->totalCost = StringLiteral::fromXml($totalCost);
 
         $message = $xml->getElementsByTagName('message');
         $static->message = StringLiteral::fromXml($message);
@@ -168,14 +168,14 @@ class UserActivities implements ValueInterface, FromDomDocumentInterface
     }
 
     /**
-     * Gets the total of all open expenses.
+     * Gets the total of all open costs.
      *
      * @return StringLiteral
-     *   The total of all open expenses.
+     *   The total of all open costs.
      */
-    public function getTotalExpense()
+    public function getTotalCost()
     {
-        return $this->totalExpense;
+        return $this->totalCost;
     }
 
     /**
