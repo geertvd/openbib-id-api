@@ -4,6 +4,7 @@ namespace OpenBibIdApi\Value\UserActivities;
 
 use OpenBibIdApi\Value\Boolean\BoolLiteral;
 use OpenBibIdApi\Value\FromDomDocumentInterface;
+use OpenBibIdApi\Value\Number\FloatLiteral;
 use OpenBibIdApi\Value\StringLiteral\StringLiteral;
 use OpenBibIdApi\Value\ValueInterface;
 
@@ -40,14 +41,14 @@ class UserActivities implements ValueInterface, FromDomDocumentInterface
     /**
      * The total of all open fines.
      *
-     * @var StringLiteral
+     * @var FloatLiteral
      */
     private $totalFine;
 
     /**
      * The total of all open costs.
      *
-     * @var StringLiteral
+     * @var FloatLiteral
      */
     private $totalCost;
 
@@ -98,10 +99,10 @@ class UserActivities implements ValueInterface, FromDomDocumentInterface
         $static->expenses = ExpenseCollection::fromXml($expenses);
 
         $totalFine = $xml->getElementsByTagName('totalFine');
-        $static->totalFine = StringLiteral::fromXml($totalFine);
+        $static->totalFine = FloatLiteral::fromXml($totalFine);
 
         $totalCost = $xml->getElementsByTagName('totalCost');
-        $static->totalCost = StringLiteral::fromXml($totalCost);
+        $static->totalCost = FloatLiteral::fromXml($totalCost);
 
         $message = $xml->getElementsByTagName('message');
         $static->message = StringLiteral::fromXml($message);
@@ -159,7 +160,7 @@ class UserActivities implements ValueInterface, FromDomDocumentInterface
     /**
      * Gets the total of all open fines.
      *
-     * @return StringLiteral
+     * @return FloatLiteral
      *   The total of all open fines.
      */
     public function getTotalFine()
@@ -170,7 +171,7 @@ class UserActivities implements ValueInterface, FromDomDocumentInterface
     /**
      * Gets the total of all open costs.
      *
-     * @return StringLiteral
+     * @return FloatLiteral
      *   The total of all open costs.
      */
     public function getTotalCost()
