@@ -3,13 +3,10 @@
 namespace OpenBibIdApi\Value\UserActivities;
 
 use OpenBibIdApi\Value\DateTime\DateTime;
-use OpenBibIdApi\Value\FromDomElementInterface;
 use OpenBibIdApi\Value\Number\FloatLiteral;
-use OpenBibIdApi\Value\StringLiteral\Path;
 use OpenBibIdApi\Value\StringLiteral\StringLiteral;
-use OpenBibIdApi\Value\ValueInterface;
 
-class Expense implements ValueInterface, FromDomElementInterface
+class Expense extends Activity
 {
     /**
      * Constants describing the type of expense.
@@ -55,20 +52,6 @@ class Expense implements ValueInterface, FromDomElementInterface
     private $amount;
 
     /**
-     * The document number of the library item of the expense.
-     *
-     * @var StringLiteral
-     */
-    private $docNumber;
-
-    /**
-     * The path to the library item of the expense.
-     *
-     * @var Path
-     */
-    private $docUrl;
-
-    /**
      * The type of expense.
      *
      * @var StringLiteral
@@ -94,6 +77,7 @@ class Expense implements ValueInterface, FromDomElementInterface
     public static function fromXml(\DOMElement $xml)
     {
         $static = new static();
+        $static->libraryItemMetadata = LibraryItemMetadata::fromXml($xml);
 
         $expenseId = $xml->getElementsByTagName('id');
         $static->expenseId = StringLiteral::fromXml($expenseId);
@@ -101,16 +85,12 @@ class Expense implements ValueInterface, FromDomElementInterface
         $date = $xml->getElementsByTagName('date');
         $static->date = DateTime::fromXml($date);
 
-        $docUrl = $xml->getElementsByTagName('docUrl');
-        $static->docUrl = Path::fromXml($docUrl);
-
         $amount = $xml->getElementsByTagName('amount');
         $static->amount = FloatLiteral::fromXml($amount);
 
         $stringLiterals = array(
             'title' => $xml->getElementsByTagName('title'),
             'description' => $xml->getElementsByTagName('description'),
-            'docNumber' => $xml->getElementsByTagName('docNumber'),
             'type' => $xml->getElementsByTagName('type'),
         );
         foreach ($stringLiterals as $propertyName => $xmlTag) {
@@ -173,28 +153,6 @@ class Expense implements ValueInterface, FromDomElementInterface
     public function getAmount()
     {
         return $this->amount;
-    }
-
-    /**
-     * Gets the document number of the library item of the expense.
-     *
-     * @return StringLiteral
-     *   The document number of the library item of the expense.
-     */
-    public function getDocNumber()
-    {
-        return $this->docNumber;
-    }
-
-    /**
-     * Gets the path to the library item of the expense.
-     *
-     * @return Path
-     *   The path to the library item of the expense.
-     */
-    public function getDocUrl()
-    {
-        return $this->docUrl;
     }
 
     /**
