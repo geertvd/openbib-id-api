@@ -4,6 +4,7 @@ namespace OpenBibIdApi\Value\UserActivities;
 
 use OpenBibIdApi\Value\DateTime\DateTime;
 use OpenBibIdApi\Value\FromDomElementInterface;
+use OpenBibIdApi\Value\Number\FloatLiteral;
 use OpenBibIdApi\Value\StringLiteral\Path;
 use OpenBibIdApi\Value\StringLiteral\StringLiteral;
 use OpenBibIdApi\Value\ValueInterface;
@@ -103,10 +104,12 @@ class Expense implements ValueInterface, FromDomElementInterface
         $docUrl = $xml->getElementsByTagName('docUrl');
         $static->docUrl = Path::fromXml($docUrl);
 
+        $amount = $xml->getElementsByTagName('amount');
+        $static->amount = FloatLiteral::fromXml($amount);
+
         $stringLiterals = array(
             'title' => $xml->getElementsByTagName('title'),
             'description' => $xml->getElementsByTagName('description'),
-            'amount' => $xml->getElementsByTagName('amount'),
             'docNumber' => $xml->getElementsByTagName('docNumber'),
             'type' => $xml->getElementsByTagName('type'),
         );
