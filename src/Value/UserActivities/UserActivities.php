@@ -41,14 +41,14 @@ class UserActivities implements ValueInterface, FromDomDocumentInterface
     /**
      * The total of all open fines.
      *
-     * @var StringLiteral
+     * @var FloatLiteral
      */
     private $totalFine;
 
     /**
      * The total of all open costs.
      *
-     * @var StringLiteral
+     * @var FloatLiteral
      */
     private $totalCost;
 
@@ -160,7 +160,7 @@ class UserActivities implements ValueInterface, FromDomDocumentInterface
     /**
      * Gets the total of all open fines.
      *
-     * @return StringLiteral
+     * @return FloatLiteral
      *   The total of all open fines.
      */
     public function getTotalFine()
@@ -171,7 +171,7 @@ class UserActivities implements ValueInterface, FromDomDocumentInterface
     /**
      * Gets the total of all open costs.
      *
-     * @return StringLiteral
+     * @return FloatLiteral
      *   The total of all open costs.
      */
     public function getTotalCost()

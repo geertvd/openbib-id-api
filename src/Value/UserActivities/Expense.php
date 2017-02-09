@@ -50,7 +50,7 @@ class Expense implements ValueInterface, FromDomElementInterface
     /**
      * The amount to be payed.
      *
-     * @var StringLiteral
+     * @var FloatLiteral
      */
     private $amount;
 
@@ -167,7 +167,7 @@ class Expense implements ValueInterface, FromDomElementInterface
     /**
      * Gets the amount to be payed.
      *
-     * @return StringLiteral
+     * @return FloatLiteral
      *   The amount to be payed.
      */
     public function getAmount()
