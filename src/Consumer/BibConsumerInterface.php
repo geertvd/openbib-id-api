@@ -36,7 +36,7 @@ interface BibConsumerInterface
      *   A \DOMDocument containing the XML from the response, null if HTTP
      *   status code 204 (No content) was returned.
      *
-     * @throws BibApi\Exception\BibException
+     * @throws \OpenBibIdApi\Exception\BibException
      *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
      */
     public function get($url, $params = array(), $queryParams = array());
@@ -60,7 +60,7 @@ interface BibConsumerInterface
      *   A \DOMDocument containing the XML from the response, null if HTTP
      *   status code 204 (No content) was returned.
      *
-     * @throws BibApi\Exception\BibException
+     * @throws \OpenBibIdApi\Exception\BibException
      *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
      */
     public function getTwoLegged($url, $params = array(), $queryParams = array());
@@ -84,7 +84,7 @@ interface BibConsumerInterface
      *   A \DOMDocument containing the XML from the response, null if HTTP
      *   status code 204 (No content) was returned.
      *
-     * @throws BibApi\Exception\BibException
+     * @throws \OpenBibIdApi\Exception\BibException
      *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
      */
     public function post($url, $params = array(), $queryParams = array());
@@ -108,7 +108,7 @@ interface BibConsumerInterface
      *   A \DOMDocument containing the XML from the response, null if HTTP
      *   status code 204 (No content) was returned.
      *
-     * @throws BibApi\Exception\BibException
+     * @throws \OpenBibIdApi\Exception\BibException
      *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
      */
     public function postTwoLegged($url, $params = array(), $queryParams = array());

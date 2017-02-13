@@ -187,7 +187,7 @@ class BibConsumer implements BibConsumerInterface
      *   status
      *   code 204 (No content) was returned.
      *
-     * @throws BibApi\Exception\BibException
+     * @throws \OpenBibIdApi\Exception\BibException
      *   When any of the 400, 401, 403, 404 or 421 status codes were returned.
      */
     protected function doRequest(Client $client, $url, $options = array())

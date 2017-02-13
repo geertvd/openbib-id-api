@@ -23,7 +23,7 @@ class Environment implements EnvironmentInterface
      *
      * @param string $baseUrl
      *   The base url.
-     * @param string name
+     * @param string $name
      *   The name of the environment (e.g. 'prod', 'qa', 'test').
      */
     public function __construct($baseUrl, $name = 'environment')

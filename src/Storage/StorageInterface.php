@@ -28,7 +28,7 @@ interface StorageInterface
     /**
      * Delete a stored value.
      *
-     * @param striing $key
+     * @param string $key
      *   The key of the value to delete.
      */
     public function delete($key);
