@@ -2,6 +2,8 @@
 
 namespace OpenBibIdApi\Service;
 
+use OpenBibIdApi\Value\UserActivities\UserActivities;
+
 class UserService extends Service implements UserServiceInterface
 {
     /**
@@ -58,13 +60,12 @@ class UserService extends Service implements UserServiceInterface
             array(':id' => $accountId)
         );
     }
-
     /**
      * {@inheritdoc}
      */
     public function getUserActivities($accountId, $triggerRefresh = false, $includeLoanHistory = true)
     {
-        return $this->consumer->get(
+        $response = $this->consumer->get(
             '/libraryaccounts/:id/activities',
             array(':id' => $accountId),
             array(
@@ -72,6 +73,7 @@ class UserService extends Service implements UserServiceInterface
                 'includeLoanHistory' => $includeLoanHistory,
             )
         );
+        return UserActivities::fromXml($response);
     }
 
     /**

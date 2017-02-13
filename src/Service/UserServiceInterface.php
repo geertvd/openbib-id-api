@@ -2,6 +2,8 @@
 
 namespace OpenBibIdApi\Service;
 
+use OpenBibIdApi\Value\UserActivities\UserActivities;
+
 interface UserServiceInterface extends ServiceInterface
 {
     /**
@@ -62,9 +64,8 @@ interface UserServiceInterface extends ServiceInterface
      * @param bool $includeLoanHistory
      *   Whether the loan history should by included in the user activities.
      *
-     * @return \DOMDocument|null
-     *   A \DOMDocument containing the XML from the response, null if HTTP
-     *   status code 204 (No content) was returned.
+     * @return UserActivities
+     *   An object containing information about user activities.
      */
     public function getUserActivities($accountId, $triggerRefresh = false, $includeLoanHistory = true);
 
