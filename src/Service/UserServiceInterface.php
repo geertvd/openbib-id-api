@@ -2,6 +2,8 @@
 
 namespace OpenBibIdApi\Service;
 
+use OpenBibIdApi\Value\UserActivities\Hold;
+use OpenBibIdApi\Value\UserActivities\Loan;
 use OpenBibIdApi\Value\UserActivities\UserActivities;
 
 interface UserServiceInterface extends ServiceInterface
@@ -112,4 +114,32 @@ interface UserServiceInterface extends ServiceInterface
      *   status code 204 (No content) was returned.
      */
     public function getUserLibraryListAndOnlineCollection($collectionKey);
+
+    /**
+     * Cancels a reservation.
+     *
+     * @param string $accountId
+     *   The id of the library account.
+     * @param Hold $hold
+     *   The hold object.
+     *
+     * @return \DOMDocument|null
+     *   A \DOMDocument containing the XML from the response, null if HTTP
+     *   status code 204 (No content) was returned.
+     */
+    public function cancelReservation($accountId, Hold $hold);
+
+    /**
+     * Renews a loan.
+     *
+     * @param string $accountId
+     *   The id of the library account.
+     * @param Loan $loan
+     *   The loan object.
+     *
+     * @return \DOMDocument|null
+     *   A \DOMDocument containing the XML from the response, null if HTTP
+     *   status code 204 (No content) was returned.
+     */
+    public function renewLoan($accountId, Loan $loan);
 }
